@@ -4,5 +4,6 @@ namespace DBClass\SQL\MySQL\Interfaces;
 
 interface Statement
 {
-    public function build(): string;
+    public function getBuild(): string;
+    public function getData(): array;
 }

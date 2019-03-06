@@ -4,6 +4,9 @@ namespace DBClass\SQL\MySQL;
 
 final class CreateDatabase implements Interfaces\CreateDatabase
 {
+    private $build = '';
+    private $data = [];
+
     private $database;
     private $charset = self::DEFAULT_CHARSET;
     private $collation = self::DEFAULT_COLLATION;
@@ -14,12 +17,13 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         $this->setDatabase($database);
         $this->setCharset($charset);
         $this->setCollation($collation);
+        $this->build();
     }
 
     public function setDatabase(string $database): Interfaces\CreateDatabase
     {
         $this->database = $database;
-        return $this;
+        return $this->build();
     }
 
     public function getDatabase(): string
@@ -34,7 +38,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         }
 
         $this->charset = $charset;
-        return $this;
+        return $this->build();
     }
 
     public function getCharset(): string
@@ -49,7 +53,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         }
 
         $this->collation = $collation;
-        return $this;
+        return $this->build();
     }
 
     public function getCollation(): string
@@ -60,16 +64,26 @@ final class CreateDatabase implements Interfaces\CreateDatabase
     public function ifExists(): Interfaces\CreateDatabase
     {
         $this->if_not_exists = false;
-        return $this;
+        return $this->build();
     }
 
     public function ifNotExists(): Interfaces\CreateDatabase
     {
         $this->if_not_exists = true;
-        return $this;
+        return $this->build();
     }
 
-    public function build(): string
+    public function getBuild(): string
+    {
+        return $this->build;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
+    private function build(): self
     {
         $build[] = 'CREATE DATABASE';
 
@@ -81,6 +95,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         $build[] = sprintf('CHARACTER SET `%s`', $this->getCharset());
         $build[] = sprintf('COLLATE `%s`', $this->getCollation());
 
-        return implode(' ', $build) . ';';
+        $this->build = implode(' ', $build) . ';';
+        return $this;
     }
 }
