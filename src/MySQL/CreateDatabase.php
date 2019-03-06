@@ -9,7 +9,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
     private $collation;
     private $if_not_exists = false;
 
-    public function __construct(string $database, string $charset = 'utf8', string $collation = 'utf8_general_ci')
+    public function __construct(string $database, string $charset = 'utf8mb4', string $collation = 'utf8mb4_unicode_ci')
     {
         $this->setDatabase($database);
         $this->setCharset($charset);
