@@ -11,9 +11,23 @@ class CreateDatabaseTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($database) { return new CreateDatabase($database); }],
-            [function ($database) { return Create::database($database); }],
+            [function ($database, $charset = null, $collation = null) { return new CreateDatabase($database, $charset, $collation); }],
+            [function ($database, $charset = null, $collation = null) { return Create::database($database, $charset, $collation); }],
         ];
+    }
+
+    /**
+     * @dataProvider getImplementations
+     */
+    public function test_construct(callable $obj)
+    {
+        $obj = $obj('foo', 'bar', 'baz');
+
+        $this->assertSame('foo', $obj->getDatabase());
+        $this->assertSame('bar', $obj->getCharset());
+        $this->assertSame('baz', $obj->getCollation());
+        $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `bar` COLLATE `baz`;', $obj->getBuild());
+        $this->assertSame([], $obj->getData());
     }
 
     /**
