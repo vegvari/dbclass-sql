@@ -27,7 +27,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         return $this->database;
     }
 
-    public function setCharset(?string $charset = null): Interfaces\CreateDatabase
+    public function setCharset(string $charset = null): Interfaces\CreateDatabase
     {
         if ($charset === null) {
             $charset = self::DEFAULT_CHARSET;
@@ -42,7 +42,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         return $this->charset;
     }
 
-    public function setCollation(?string $collation = null): Interfaces\CreateDatabase
+    public function setCollation(string $collation = null): Interfaces\CreateDatabase
     {
         if ($collation === null) {
             $collation = self::DEFAULT_COLLATION;

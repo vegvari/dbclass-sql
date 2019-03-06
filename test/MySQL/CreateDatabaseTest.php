@@ -3,20 +3,26 @@
 namespace DBClass\SQL\MySQL;
 
 use PHPUnit\Framework\TestCase;
-use DBClass\SQL\MySQL\Create as MySQLCreate;
-use DBClass\SQL\MySQL\CreateDatabase as MySQLCreateDatabase;
+use DBClass\SQL\MySQL\Create;
+use DBClass\SQL\MySQL\CreateDatabase;
 
-/**
- * @covers DBClass\SQL\MySQL\CreateDatabase
- * @covers DBClass\SQL\MySQL\Create::Database
- */
 class CreateDatabaseTest extends TestCase
 {
+    public function test_construct()
+    {
+        $obj = new CreateDatabase('foo', 'bar', 'baz');
+
+        $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `bar` COLLATE `baz`;', $obj->build());
+
+        $obj = Create::database('foo', 'bar', 'baz');
+        $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `bar` COLLATE `baz`;', $obj->build());
+    }
+
     public function getImplementations(): array
     {
         return [
-            [function ($database) { return new MySQLCreateDatabase($database); }],
-            [function ($database) { return MySQLCreate::database($database); }],
+            [function ($database) { return new CreateDatabase($database); }],
+            [function ($database) { return Create::database($database); }],
         ];
     }
 
