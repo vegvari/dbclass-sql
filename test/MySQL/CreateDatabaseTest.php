@@ -28,6 +28,7 @@ class CreateDatabaseTest extends TestCase
         $this->assertSame('baz', $obj->getCollation());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `bar` COLLATE `baz`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
     }
 
     /**
@@ -40,11 +41,13 @@ class CreateDatabaseTest extends TestCase
         $this->assertSame('foo', $obj->getDatabase());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
 
         $obj->setDatabase('bar');
         $this->assertSame('bar', $obj->getDatabase());
         $this->assertSame('CREATE DATABASE `bar` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
     }
 
     /**
@@ -57,15 +60,18 @@ class CreateDatabaseTest extends TestCase
         $this->assertSame('utf8mb4', $obj->getCharset());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
 
         $obj->setCharset('bar');
         $this->assertSame('bar', $obj->getCharset());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `bar` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
 
         $obj->setCharset();
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
     }
 
     /**
@@ -78,15 +84,18 @@ class CreateDatabaseTest extends TestCase
         $this->assertSame('utf8mb4_unicode_ci', $obj->getCollation());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
 
         $obj->setCollation('bar');
         $this->assertSame('bar', $obj->getCollation());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `bar`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
 
         $obj->setCollation();
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
     }
 
     /**
@@ -98,13 +107,16 @@ class CreateDatabaseTest extends TestCase
 
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
 
         $obj->ifNotExists();
         $this->assertSame('CREATE DATABASE IF NOT EXISTS `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
 
         $obj->ifExists();
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+        $this->assertSame($obj->getBuild(), (string) $obj);
     }
 }

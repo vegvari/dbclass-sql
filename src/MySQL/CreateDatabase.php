@@ -83,6 +83,11 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         return $this->data;
     }
 
+    public function __toString(): string
+    {
+        return $this->build;
+    }
+
     private function build(): self
     {
         $build[] = 'CREATE DATABASE';
