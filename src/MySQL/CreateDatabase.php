@@ -7,28 +7,28 @@ final class CreateDatabase implements Interfaces\CreateDatabase
     private $build = '';
     private $data = [];
 
-    private $database;
+    private $name;
     private $charset = self::DEFAULT_CHARSET;
     private $collation = self::DEFAULT_COLLATION;
     private $if_not_exists = false;
 
-    public function __construct(string $database, string $charset = null, string $collation = null)
+    public function __construct(string $name, string $charset = null, string $collation = null)
     {
-        $this->setDatabase($database);
+        $this->setName($name);
         $this->setCharset($charset);
         $this->setCollation($collation);
         $this->build();
     }
 
-    public function setDatabase(string $database): Interfaces\CreateDatabase
+    public function setName(string $name): Interfaces\CreateDatabase
     {
-        $this->database = $database;
+        $this->name = $name;
         return $this->build();
     }
 
-    public function getDatabase(): string
+    public function getName(): string
     {
-        return $this->database;
+        return $this->name;
     }
 
     public function setCharset(string $charset = null): Interfaces\CreateDatabase
@@ -96,7 +96,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
             $build[] = 'IF NOT EXISTS';
         }
 
-        $build[] = sprintf('`%s`', $this->getDatabase());
+        $build[] = sprintf('`%s`', $this->getName());
         $build[] = sprintf('CHARACTER SET `%s`', $this->getCharset());
         $build[] = sprintf('COLLATE `%s`', $this->getCollation());
 

@@ -23,7 +23,7 @@ class CreateDatabaseTest extends TestCase
     {
         $obj = $obj('foo', 'bar', 'baz');
 
-        $this->assertSame('foo', $obj->getDatabase());
+        $this->assertSame('foo', $obj->getName());
         $this->assertSame('bar', $obj->getCharset());
         $this->assertSame('baz', $obj->getCollation());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `bar` COLLATE `baz`;', $obj->getBuild());
@@ -34,17 +34,17 @@ class CreateDatabaseTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test_database(callable $obj)
+    public function test_name(callable $obj)
     {
         $obj = $obj('foo');
 
-        $this->assertSame('foo', $obj->getDatabase());
+        $this->assertSame('foo', $obj->getName());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
         $this->assertSame($obj->getBuild(), (string) $obj);
 
-        $obj->setDatabase('bar');
-        $this->assertSame('bar', $obj->getDatabase());
+        $obj->setName('bar');
+        $this->assertSame('bar', $obj->getName());
         $this->assertSame('CREATE DATABASE `bar` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
         $this->assertSame($obj->getBuild(), (string) $obj);
