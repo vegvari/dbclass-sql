@@ -5,11 +5,11 @@ namespace DBClass\SQL\MySQL;
 final class CreateDatabase implements Interfaces\CreateDatabase
 {
     private $database;
-    private $charset;
-    private $collation;
+    private $charset = self::DEFAULT_CHARSET;
+    private $collation = self::DEFAULT_COLLATION;
     private $if_not_exists = false;
 
-    public function __construct(string $database, string $charset = 'utf8mb4', string $collation = 'utf8mb4_unicode_ci')
+    public function __construct(string $database, string $charset = null, string $collation = null)
     {
         $this->setDatabase($database);
         $this->setCharset($charset);
@@ -27,8 +27,12 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         return $this->database;
     }
 
-    public function setCharset(string $charset): Interfaces\CreateDatabase
+    public function setCharset(?string $charset = null): Interfaces\CreateDatabase
     {
+        if ($charset === null) {
+            $charset = self::DEFAULT_CHARSET;
+        }
+
         $this->charset = $charset;
         return $this;
     }
@@ -38,8 +42,12 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         return $this->charset;
     }
 
-    public function setCollation(string $collation): Interfaces\CreateDatabase
+    public function setCollation(?string $collation = null): Interfaces\CreateDatabase
     {
+        if ($collation === null) {
+            $collation = self::DEFAULT_COLLATION;
+        }
+
         $this->collation = $collation;
         return $this;
     }

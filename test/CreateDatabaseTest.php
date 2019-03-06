@@ -48,6 +48,9 @@ class CreateDatabaseTest extends TestCase
         $obj->setCharset('bar');
         $this->assertSame('bar', $obj->getCharset());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `bar` COLLATE `utf8mb4_unicode_ci`;', $obj->build());
+
+        $obj->setCharset();
+        $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->build());
     }
 
     /**
@@ -63,6 +66,9 @@ class CreateDatabaseTest extends TestCase
         $obj->setCollation('bar');
         $this->assertSame('bar', $obj->getCollation());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `bar`;', $obj->build());
+
+        $obj->setCollation();
+        $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->build());
     }
 
     /**
