@@ -11,24 +11,9 @@ class CreateTableTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($database, $charset = null, $collation = null) { return new CreateTable($database, $charset, $collation); }],
-            [function ($database, $charset = null, $collation = null) { return Create::table($database, $charset, $collation); }],
+            [function ($name) { return new CreateTable($name); }],
+            [function ($name) { return Create::table($name); }],
         ];
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_construct(callable $obj)
-    {
-        $obj = $obj('foo', 'bar', 'baz');
-
-        $this->assertSame('foo', $obj->getName());
-        $this->assertSame('bar', $obj->getCharset());
-        $this->assertSame('baz', $obj->getCollation());
-        $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `bar` COLLATE `baz`;', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
-        $this->assertSame($obj->getBuild(), (string) $obj);
     }
 
     /**

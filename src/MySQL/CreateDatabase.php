@@ -12,12 +12,9 @@ final class CreateDatabase implements Interfaces\CreateDatabase
     private $charset = self::DEFAULT_CHARSET;
     private $collation = self::DEFAULT_COLLATION;
 
-    public function __construct(string $name, string $charset = null, string $collation = null)
+    public function __construct(string $name)
     {
         $this->setName($name);
-        $this->setCharset($charset);
-        $this->setCollation($collation);
-        $this->build();
     }
 
     public function setName(string $name): Interfaces\CreateDatabase
