@@ -5,7 +5,7 @@ namespace DBClass\SQL\MySQL;
 final class CreateTable implements Interfaces\CreateTable
 {
     private $name;
-    private $if_not_exists = false;
+    private $exists = true;
     private $engine = self::DEFAULT_ENGINE;
     private $charset = self::DEFAULT_CHARSET;
     private $collation = self::DEFAULT_COLLATION;
@@ -29,13 +29,13 @@ final class CreateTable implements Interfaces\CreateTable
 
     public function ifExists(): Interfaces\CreateTable
     {
-        $this->if_not_exists = false;
+        $this->exists = true;
         return $this;
     }
 
     public function ifNotExists(): Interfaces\CreateTable
     {
-        $this->if_not_exists = true;
+        $this->exists = false;
         return $this;
     }
 
@@ -104,7 +104,7 @@ final class CreateTable implements Interfaces\CreateTable
     {
         $build[] = 'CREATE TABLE';
 
-        if ($this->if_not_exists === true) {
+        if ($this->exists === false) {
             $build[] = 'IF NOT EXISTS';
         }
 

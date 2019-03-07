@@ -5,7 +5,7 @@ namespace DBClass\SQL\MySQL;
 final class DropDatabase implements Interfaces\DropDatabase
 {
     private $name;
-    private $if_exists = false;
+    private $exists = false;
 
     public function __construct(string $name)
     {
@@ -25,13 +25,13 @@ final class DropDatabase implements Interfaces\DropDatabase
 
     public function ifExists(): Interfaces\DropDatabase
     {
-        $this->if_exists = true;
+        $this->exists = true;
         return $this;
     }
 
     public function ifNotExists(): Interfaces\DropDatabase
     {
-        $this->if_exists = false;
+        $this->exists = false;
         return $this;
     }
 
@@ -39,7 +39,7 @@ final class DropDatabase implements Interfaces\DropDatabase
     {
         $build[] = 'DROP DATABASE';
 
-        if ($this->if_exists === true) {
+        if ($this->exists === true) {
             $build[] = 'IF EXISTS';
         }
 

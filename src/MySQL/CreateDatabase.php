@@ -5,7 +5,7 @@ namespace DBClass\SQL\MySQL;
 final class CreateDatabase implements Interfaces\CreateDatabase
 {
     private $name;
-    private $if_not_exists = false;
+    private $exists = true;
     private $charset = self::DEFAULT_CHARSET;
     private $collation = self::DEFAULT_COLLATION;
 
@@ -27,13 +27,13 @@ final class CreateDatabase implements Interfaces\CreateDatabase
 
     public function ifExists(): Interfaces\CreateDatabase
     {
-        $this->if_not_exists = false;
+        $this->exists = true;
         return $this;
     }
 
     public function ifNotExists(): Interfaces\CreateDatabase
     {
-        $this->if_not_exists = true;
+        $this->exists = false;
         return $this;
     }
 
@@ -71,7 +71,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
     {
         $build[] = 'CREATE DATABASE';
 
-        if ($this->if_not_exists === true) {
+        if ($this->exists === false) {
             $build[] = 'IF NOT EXISTS';
         }
 
