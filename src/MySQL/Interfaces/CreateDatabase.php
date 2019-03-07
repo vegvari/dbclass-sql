@@ -4,9 +4,6 @@ namespace DBClass\SQL\MySQL\Interfaces;
 
 interface CreateDatabase extends DDLStatement
 {
-    const DEFAULT_CHARSET = 'utf8mb4';
-    const DEFAULT_COLLATION = 'utf8mb4_unicode_ci';
-
     public function setName(string $name): self;
     public function getName(): string;
     public function setCharset(string $charset = null): self;
