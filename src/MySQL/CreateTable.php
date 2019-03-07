@@ -9,8 +9,10 @@ final class CreateTable implements Interfaces\CreateTable
 
     private $name;
     private $if_not_exists = false;
+    private $engine = self::DEFAULT_ENGINE;
     private $charset = self::DEFAULT_CHARSET;
     private $collation = self::DEFAULT_COLLATION;
+    private $comment;
 
     public function __construct(string $name, string $charset = null, string $collation = null)
     {
@@ -43,6 +45,21 @@ final class CreateTable implements Interfaces\CreateTable
         return $this->build();
     }
 
+    public function setEngine(string $engine = null): Interfaces\CreateTable
+    {
+        if ($engine === null) {
+            $engine = self::DEFAULT_ENGINE;
+        }
+
+        $this->engine = $engine;
+        return $this->build();
+    }
+
+    public function getEngine(): string
+    {
+        return $this->engine;
+    }
+
     public function setCharset(string $charset = null): Interfaces\CreateTable
     {
         if ($charset === null) {
@@ -73,6 +90,22 @@ final class CreateTable implements Interfaces\CreateTable
         return $this->collation;
     }
 
+    public function setComment(string $comment = null): Interfaces\CreateTable
+    {
+        $this->comment = $comment;
+        return $this->build();
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function hasComment(): bool
+    {
+        return $this->comment !== null;
+    }
+
     public function getBuild(): string
     {
         return $this->build;
@@ -97,8 +130,13 @@ final class CreateTable implements Interfaces\CreateTable
         }
 
         $build[] = sprintf('`%s`', $this->getName());
+        $build[] = sprintf('ENGINE `%s`', $this->getEngine());
         $build[] = sprintf('CHARACTER SET `%s`', $this->getCharset());
         $build[] = sprintf('COLLATE `%s`', $this->getCollation());
+
+        if ($this->hasComment()) {
+            $build[] = sprintf('COMMENT \'%s\'', $this->getComment());
+        }
 
         $this->build = implode(' ', $build) . ';';
         return $this;
