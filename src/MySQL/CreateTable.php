@@ -8,9 +8,9 @@ final class CreateTable implements Interfaces\CreateTable
     private $data = [];
 
     private $name;
+    private $if_not_exists = false;
     private $charset = self::DEFAULT_CHARSET;
     private $collation = self::DEFAULT_COLLATION;
-    private $if_not_exists = false;
 
     public function __construct(string $name, string $charset = null, string $collation = null)
     {
@@ -29,6 +29,18 @@ final class CreateTable implements Interfaces\CreateTable
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function ifExists(): Interfaces\CreateTable
+    {
+        $this->if_not_exists = false;
+        return $this->build();
+    }
+
+    public function ifNotExists(): Interfaces\CreateTable
+    {
+        $this->if_not_exists = true;
+        return $this->build();
     }
 
     public function setCharset(string $charset = null): Interfaces\CreateTable
@@ -59,18 +71,6 @@ final class CreateTable implements Interfaces\CreateTable
     public function getCollation(): string
     {
         return $this->collation;
-    }
-
-    public function ifExists(): Interfaces\CreateTable
-    {
-        $this->if_not_exists = false;
-        return $this->build();
-    }
-
-    public function ifNotExists(): Interfaces\CreateTable
-    {
-        $this->if_not_exists = true;
-        return $this->build();
     }
 
     public function getBuild(): string
