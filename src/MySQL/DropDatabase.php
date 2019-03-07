@@ -43,6 +43,8 @@ final class DropDatabase implements Interfaces\DropDatabase
             $build[] = 'IF EXISTS';
         }
 
+        $build[] = sprintf('`%s`', $this->getName());
+
         return implode(' ', $build) . ';';
     }
 
