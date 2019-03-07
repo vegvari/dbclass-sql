@@ -43,6 +43,8 @@ final class DropTable implements Interfaces\DropTable
             $build[] = 'IF EXISTS';
         }
 
+        $build[] = sprintf('`%s`', $this->getName());
+
         return implode(' ', $build) . ';';
     }
 
