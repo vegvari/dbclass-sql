@@ -6,5 +6,4 @@ interface Statement
 {
     public function getBuild(): string;
     public function getData(): array;
-    public function __toString(): string;
 }

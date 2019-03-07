@@ -4,9 +4,6 @@ namespace DBClass\SQL\MySQL;
 
 final class CreateTable implements Interfaces\CreateTable
 {
-    private $build = '';
-    private $data = [];
-
     private $name;
     private $if_not_exists = false;
     private $engine = self::DEFAULT_ENGINE;
@@ -22,7 +19,7 @@ final class CreateTable implements Interfaces\CreateTable
     public function setName(string $name): Interfaces\CreateTable
     {
         $this->name = $name;
-        return $this->build();
+        return $this;
     }
 
     public function getName(): string
@@ -33,13 +30,13 @@ final class CreateTable implements Interfaces\CreateTable
     public function ifExists(): Interfaces\CreateTable
     {
         $this->if_not_exists = false;
-        return $this->build();
+        return $this;
     }
 
     public function ifNotExists(): Interfaces\CreateTable
     {
         $this->if_not_exists = true;
-        return $this->build();
+        return $this;
     }
 
     public function setEngine(string $engine = null): Interfaces\CreateTable
@@ -49,7 +46,7 @@ final class CreateTable implements Interfaces\CreateTable
         }
 
         $this->engine = $engine;
-        return $this->build();
+        return $this;
     }
 
     public function getEngine(): string
@@ -64,7 +61,7 @@ final class CreateTable implements Interfaces\CreateTable
         }
 
         $this->charset = $charset;
-        return $this->build();
+        return $this;
     }
 
     public function getCharset(): string
@@ -79,7 +76,7 @@ final class CreateTable implements Interfaces\CreateTable
         }
 
         $this->collation = $collation;
-        return $this->build();
+        return $this;
     }
 
     public function getCollation(): string
@@ -90,7 +87,7 @@ final class CreateTable implements Interfaces\CreateTable
     public function setComment(string $comment = null): Interfaces\CreateTable
     {
         $this->comment = $comment;
-        return $this->build();
+        return $this;
     }
 
     public function getComment(): ?string
@@ -104,21 +101,6 @@ final class CreateTable implements Interfaces\CreateTable
     }
 
     public function getBuild(): string
-    {
-        return $this->build;
-    }
-
-    public function getData(): array
-    {
-        return $this->data;
-    }
-
-    public function __toString(): string
-    {
-        return $this->build;
-    }
-
-    private function build(): self
     {
         $build[] = 'CREATE TABLE';
 
@@ -135,7 +117,11 @@ final class CreateTable implements Interfaces\CreateTable
             $build[] = sprintf('COMMENT \'%s\'', $this->getComment());
         }
 
-        $this->build = implode(' ', $build) . ';';
-        return $this;
+        return implode(' ', $build) . ';';
+    }
+
+    public function getData(): array
+    {
+        return [];
     }
 }
