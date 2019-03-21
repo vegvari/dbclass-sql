@@ -6,7 +6,7 @@ final class DropTable implements Interfaces\DropTable
 {
     use Traits\Builder;
 
-    const DEFAULT_BUILDER = DropTableBuilder::class;
+    const DEFAULT_BUILDER_CLASS = DropTableBuilder::class;
 
     private $name;
     private $if_exists = false;

@@ -6,7 +6,7 @@ final class CreateTable implements Interfaces\CreateTable
 {
     use Traits\Builder;
 
-    const DEFAULT_BUILDER = CreateTableBuilder::class;
+    const DEFAULT_BUILDER_CLASS = CreateTableBuilder::class;
 
     private $name;
     private $if_not_exists = false;

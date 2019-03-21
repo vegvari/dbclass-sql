@@ -6,7 +6,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
 {
     use Traits\Builder;
 
-    const DEFAULT_BUILDER = CreateDatabaseBuilder::class;
+    const DEFAULT_BUILDER_CLASS = CreateDatabaseBuilder::class;
 
     private $name;
     private $if_not_exists = false;

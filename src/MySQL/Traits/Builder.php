@@ -6,35 +6,8 @@ use DBClass\SQL\MySQL\Interfaces;
 
 trait Builder
 {
-    private $builder_class;
     private $builder;
     private $data = [];
-
-    public function setBuilderClass(string $class_name): Interfaces\Statement
-    {
-        $this->builder_class;
-        return $this;
-    }
-
-    public function getBuilderClass(): string
-    {
-        return $this->builder_class;
-    }
-
-    public function hasBuilderClass(): bool
-    {
-        return $this->builder_class !== null;
-    }
-
-    public function getDefaultBuilder(): string
-    {
-        return self::DEFAULT_BUILDER;
-    }
-
-    public function hasDefaultBuilder(): bool
-    {
-        return self::DEFAULT_BUILDER !== null;
-    }
 
     public function setBuilder(Interfaces\Builder $builder): Interfaces\Statement
     {
@@ -44,17 +17,12 @@ trait Builder
 
     public function getBuilder(): Interfaces\Builder
     {
-        if ($this->hasBuilderClass()) {
-            $builder = $this->getBuilderClass();
-            return new $builder();
+        if ($this->hasBuilder()) {
+            return $this->builder;
         }
 
-        if (! $this->hasBuilder()) {
-            $builder = $this->getDefaultBuilder();
-            return new $builder();
-        }
-
-        return $this->builder;
+        $builder = self::DEFAULT_BUILDER_CLASS;
+        return new $builder();
     }
 
     public function hasBuilder(): bool

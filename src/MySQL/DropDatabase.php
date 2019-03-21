@@ -6,7 +6,7 @@ final class DropDatabase implements Interfaces\DropDatabase
 {
     use Traits\Builder;
 
-    const DEFAULT_BUILDER = DropDatabaseBuilder::class;
+    const DEFAULT_BUILDER_CLASS = DropDatabaseBuilder::class;
 
     private $name;
     private $if_exists = false;
