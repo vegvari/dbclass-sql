@@ -29,6 +29,17 @@ class CreateTableBuilderTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
+    public function test_database_name(callable $obj)
+    {
+        $obj = $obj('foo');
+        $obj->setDatabaseName('bar');
+        $this->assertSame('CREATE TABLE `bar`.`foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
+        $this->assertSame([], $obj->getData());
+    }
+
+    /**
+     * @dataProvider getImplementations
+     */
     public function test_if_not_exists(callable $obj)
     {
         $obj = $obj('foo');
