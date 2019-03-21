@@ -15,9 +15,10 @@ final class CreateTable implements Interfaces\CreateTable
     private $collation = self::DEFAULT_COLLATION;
     private $comment;
 
-    public function __construct(string $name)
+    public function __construct(string $name, string $database_name = null)
     {
         $this->setName($name);
+        $this->setDatabaseName($database_name);
     }
 
     public function setName(string $name): Interfaces\CreateTable
@@ -29,6 +30,22 @@ final class CreateTable implements Interfaces\CreateTable
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setDatabaseName(string $database_name = null): Interfaces\CreateTable
+    {
+        $this->database_name = $database_name;
+        return $this;
+    }
+
+    public function getDatabaseName(): string
+    {
+        return $this->database_name;
+    }
+
+    public function hasDatabaseName(): bool
+    {
+        return $this->database_name !== null;
     }
 
     public function setIfNotExists(bool $value): Interfaces\CreateTable

@@ -9,8 +9,8 @@ abstract class Create
         return new CreateDatabase($name);
     }
 
-    public static function table(string $name): Interfaces\CreateTable
+    public static function table(string $name, string $database_name = null): Interfaces\CreateTable
     {
-        return new CreateTable($name);
+        return new CreateTable($name, $database_name);
     }
 }

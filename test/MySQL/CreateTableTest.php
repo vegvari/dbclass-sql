@@ -11,8 +11,8 @@ class CreateTableTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new CreateTable($name); }],
-            [function ($name) { return Create::table($name); }],
+            [function ($name, $database_name = null) { return new CreateTable($name, $database_name); }],
+            [function ($name, $database_name = null) { return Create::table($name, $database_name); }],
         ];
     }
 
@@ -26,6 +26,23 @@ class CreateTableTest extends TestCase
 
         $obj->setName('bar');
         $this->assertSame('bar', $obj->getName());
+    }
+
+    /**
+     * @dataProvider getImplementations
+     */
+    public function test_database_name(callable $obj)
+    {
+        $obj1 = $obj('foo');
+        $this->assertSame(false, $obj1->hasDatabaseName());
+
+        $obj1->setDatabaseName('bar');
+        $this->assertSame(true, $obj1->hasDatabaseName());
+        $this->assertSame('bar', $obj1->getDatabaseName());
+
+        $obj2 = $obj('foo', 'bar');
+        $this->assertSame(true, $obj2->hasDatabaseName());
+        $this->assertSame('bar', $obj2->getDatabaseName());
     }
 
     /**

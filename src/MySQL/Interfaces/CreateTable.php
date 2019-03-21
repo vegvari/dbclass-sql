@@ -9,6 +9,10 @@ interface CreateTable extends DDLStatement
     public function setName(string $name): self;
     public function getName(): string;
 
+    public function setDatabaseName(string $database_name = null): self;
+    public function getDatabaseName(): string;
+    public function hasDatabaseName(): bool;
+
     public function setIfNotExists(bool $value): self;
     public function getIfNotExists(): bool;
     public function ifNotExists(): self;
