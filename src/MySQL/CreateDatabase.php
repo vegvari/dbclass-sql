@@ -4,8 +4,12 @@ namespace DBClass\SQL\MySQL;
 
 final class CreateDatabase implements Interfaces\CreateDatabase
 {
+    use Traits\Builder;
+
+    const DEFAULT_BUILDER = CreateDatabaseBuilder::class;
+
     private $name;
-    private $exists = true;
+    private $if_not_exists = false;
     private $charset = self::DEFAULT_CHARSET;
     private $collation = self::DEFAULT_COLLATION;
 
@@ -25,16 +29,20 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         return $this->name;
     }
 
-    public function ifExists(): Interfaces\CreateDatabase
+    public function setIfNotExists(bool $value): Interfaces\CreateDatabase
     {
-        $this->exists = true;
+        $this->if_not_exists = $value;
         return $this;
+    }
+
+    public function getIfNotExists(): bool
+    {
+        return $this->if_not_exists;
     }
 
     public function ifNotExists(): Interfaces\CreateDatabase
     {
-        $this->exists = false;
-        return $this;
+        return $this->setIfNotExists(true);
     }
 
     public function setCharset(string $charset = null): Interfaces\CreateDatabase
@@ -65,25 +73,5 @@ final class CreateDatabase implements Interfaces\CreateDatabase
     public function getCollation(): string
     {
         return $this->collation;
-    }
-
-    public function getBuild(): string
-    {
-        $build[] = 'CREATE DATABASE';
-
-        if ($this->exists === false) {
-            $build[] = 'IF NOT EXISTS';
-        }
-
-        $build[] = sprintf('`%s`', $this->getName());
-        $build[] = sprintf('CHARACTER SET `%s`', $this->getCharset());
-        $build[] = sprintf('COLLATE `%s`', $this->getCollation());
-
-        return implode(' ', $build) . ';';
-    }
-
-    public function getData(): array
-    {
-        return [];
     }
 }

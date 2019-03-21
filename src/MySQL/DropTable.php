@@ -4,6 +4,10 @@ namespace DBClass\SQL\MySQL;
 
 final class DropTable implements Interfaces\DropTable
 {
+    use Traits\Builder;
+
+    const DEFAULT_BUILDER = DropTableBuilder::class;
+
     private $name;
     private $if_exists = false;
 
@@ -23,33 +27,25 @@ final class DropTable implements Interfaces\DropTable
         return $this->name;
     }
 
+    public function setIfExists(bool $value): Interfaces\DropTable
+    {
+        $this->if_exists = $value;
+        return $this;
+    }
+
+    public function getIfExists(): bool
+    {
+        return $this->if_exists;
+    }
+
     public function ifExists(): Interfaces\DropTable
     {
-        $this->if_exists = true;
-        return $this;
+        return $this->setIfExists(true);
     }
 
     public function ifNotExists(): Interfaces\DropTable
     {
         $this->if_exists = false;
         return $this;
-    }
-
-    public function getBuild(): string
-    {
-        $build[] = 'DROP TABLE';
-
-        if ($this->if_exists === true) {
-            $build[] = 'IF EXISTS';
-        }
-
-        $build[] = sprintf('`%s`', $this->getName());
-
-        return implode(' ', $build) . ';';
-    }
-
-    public function getData(): array
-    {
-        return [];
     }
 }

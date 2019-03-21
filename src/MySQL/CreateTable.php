@@ -4,8 +4,12 @@ namespace DBClass\SQL\MySQL;
 
 final class CreateTable implements Interfaces\CreateTable
 {
+    use Traits\Builder;
+
+    const DEFAULT_BUILDER = CreateTableBuilder::class;
+
     private $name;
-    private $exists = true;
+    private $if_not_exists = false;
     private $engine = self::DEFAULT_ENGINE;
     private $charset = self::DEFAULT_CHARSET;
     private $collation = self::DEFAULT_COLLATION;
@@ -27,16 +31,20 @@ final class CreateTable implements Interfaces\CreateTable
         return $this->name;
     }
 
-    public function ifExists(): Interfaces\CreateTable
+    public function setIfNotExists(bool $value): Interfaces\CreateTable
     {
-        $this->exists = true;
+        $this->if_not_exists = $value;
         return $this;
+    }
+
+    public function getIfNotExists(): bool
+    {
+        return $this->if_not_exists;
     }
 
     public function ifNotExists(): Interfaces\CreateTable
     {
-        $this->exists = false;
-        return $this;
+        return $this->setIfNotExists(true);
     }
 
     public function setEngine(string $engine = null): Interfaces\CreateTable
@@ -98,30 +106,5 @@ final class CreateTable implements Interfaces\CreateTable
     public function hasComment(): bool
     {
         return $this->comment !== null;
-    }
-
-    public function getBuild(): string
-    {
-        $build[] = 'CREATE TABLE';
-
-        if ($this->exists === false) {
-            $build[] = 'IF NOT EXISTS';
-        }
-
-        $build[] = sprintf('`%s`', $this->getName());
-        $build[] = sprintf('ENGINE `%s`', $this->getEngine());
-        $build[] = sprintf('CHARACTER SET `%s`', $this->getCharset());
-        $build[] = sprintf('COLLATE `%s`', $this->getCollation());
-
-        if ($this->hasComment()) {
-            $build[] = sprintf('COMMENT \'%s\'', $this->getComment());
-        }
-
-        return implode(' ', $build) . ';';
-    }
-
-    public function getData(): array
-    {
-        return [];
     }
 }

@@ -4,8 +4,12 @@ namespace DBClass\SQL\MySQL;
 
 final class DropDatabase implements Interfaces\DropDatabase
 {
+    use Traits\Builder;
+
+    const DEFAULT_BUILDER = DropDatabaseBuilder::class;
+
     private $name;
-    private $exists = false;
+    private $if_exists = false;
 
     public function __construct(string $name)
     {
@@ -23,33 +27,19 @@ final class DropDatabase implements Interfaces\DropDatabase
         return $this->name;
     }
 
+    public function setIfExists(bool $value): Interfaces\DropDatabase
+    {
+        $this->if_exists = $value;
+        return $this;
+    }
+
+    public function getIfExists(): bool
+    {
+        return $this->if_exists;
+    }
+
     public function ifExists(): Interfaces\DropDatabase
     {
-        $this->exists = true;
-        return $this;
-    }
-
-    public function ifNotExists(): Interfaces\DropDatabase
-    {
-        $this->exists = false;
-        return $this;
-    }
-
-    public function getBuild(): string
-    {
-        $build[] = 'DROP DATABASE';
-
-        if ($this->exists === true) {
-            $build[] = 'IF EXISTS';
-        }
-
-        $build[] = sprintf('`%s`', $this->getName());
-
-        return implode(' ', $build) . ';';
-    }
-
-    public function getData(): array
-    {
-        return [];
+        return $this->setIfExists(true);
     }
 }
