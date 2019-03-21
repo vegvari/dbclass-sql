@@ -36,20 +36,28 @@ class CreateTableTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test_exists(callable $obj)
+    public function test_if_not_exists(callable $obj)
     {
         $obj = $obj('foo');
+
+        $this->assertSame(false, $obj->getIfNotExists());
 
         $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
 
+        $obj->setIfNotExists(true);
+        $this->assertSame(true, $obj->getIfNotExists());
         $obj->ifNotExists();
         $this->assertSame('CREATE TABLE IF NOT EXISTS `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
 
-        $obj->ifExists();
+        $obj->setIfNotExists(false);
+        $this->assertSame(false, $obj->getIfNotExists());
         $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
+
+        $obj->ifNotExists();
+        $this->assertSame(true, $obj->getIfNotExists());
     }
 
     /**

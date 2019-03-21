@@ -10,17 +10,17 @@ final class CreateTableBuilder implements Interfaces\Builder
     {
         $build[] = 'CREATE TABLE';
 
-        if ($this->exists === false) {
+        if ($statement->getIfNotExists()) {
             $build[] = 'IF NOT EXISTS';
         }
 
-        $build[] = sprintf('`%s`', $this->getName());
-        $build[] = sprintf('ENGINE `%s`', $this->getEngine());
-        $build[] = sprintf('CHARACTER SET `%s`', $this->getCharset());
-        $build[] = sprintf('COLLATE `%s`', $this->getCollation());
+        $build[] = sprintf('`%s`', $statement->getName());
+        $build[] = sprintf('ENGINE `%s`', $statement->getEngine());
+        $build[] = sprintf('CHARACTER SET `%s`', $statement->getCharset());
+        $build[] = sprintf('COLLATE `%s`', $statement->getCollation());
 
-        if ($this->hasComment()) {
-            $build[] = sprintf('COMMENT \'%s\'', $this->getComment());
+        if ($statement->hasComment()) {
+            $build[] = sprintf('COMMENT \'%s\'', $statement->getComment());
         }
 
         return implode(' ', $build) . ';';

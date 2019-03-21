@@ -36,20 +36,27 @@ class CreateDatabaseTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test_exists(callable $obj)
+    public function test_if_not_exists(callable $obj)
     {
         $obj = $obj('foo');
 
+        $this->assertSame(false, $obj->getIfNotExists());
+
+        $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
+        $this->assertSame([], $obj->getData());
+
+        $obj->setIfNotExists(true);
+        $this->assertSame(true, $obj->getIfNotExists());
+        $this->assertSame('CREATE DATABASE IF NOT EXISTS `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
+        $this->assertSame([], $obj->getData());
+
+        $obj->setIfNotExists(false);
+        $this->assertSame(false, $obj->getIfNotExists());
         $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
         $this->assertSame([], $obj->getData());
 
         $obj->ifNotExists();
-        $this->assertSame('CREATE DATABASE IF NOT EXISTS `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
-
-        $obj->ifExists();
-        $this->assertSame('CREATE DATABASE `foo` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
+        $this->assertSame(true, $obj->getIfNotExists());
     }
 
     /**
