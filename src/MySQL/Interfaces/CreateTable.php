@@ -23,6 +23,6 @@ interface CreateTable extends DDLStatement
     public function getCollation(): string;
 
     public function setComment(string $comment = null): self;
-    public function getComment(): ?string;
+    public function getComment(): string;
     public function hasComment(): bool;
 }

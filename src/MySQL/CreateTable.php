@@ -98,7 +98,7 @@ final class CreateTable implements Interfaces\CreateTable
         return $this;
     }
 
-    public function getComment(): ?string
+    public function getComment(): string
     {
         return $this->comment;
     }
