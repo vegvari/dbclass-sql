@@ -38,7 +38,7 @@ final class CreateTable implements Interfaces\CreateTable
         return $this;
     }
 
-    public function getDatabaseName(): string
+    public function getDatabaseName(): ?string
     {
         return $this->database_name;
     }
@@ -81,7 +81,7 @@ final class CreateTable implements Interfaces\CreateTable
         return $this;
     }
 
-    public function getComment(): string
+    public function getComment(): ?string
     {
         return $this->comment;
     }

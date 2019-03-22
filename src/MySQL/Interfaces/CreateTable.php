@@ -10,7 +10,7 @@ interface CreateTable extends DDLStatement, Charset, Collation
     public function getName(): string;
 
     public function setDatabaseName(?string $database_name = null): self;
-    public function getDatabaseName(): string;
+    public function getDatabaseName(): ?string;
     public function hasDatabaseName(): bool;
 
     public function setIfNotExists(bool $value): self;
@@ -21,6 +21,6 @@ interface CreateTable extends DDLStatement, Charset, Collation
     public function getEngine(): string;
 
     public function setComment(?string $comment = null): self;
-    public function getComment(): string;
+    public function getComment(): ?string;
     public function hasComment(): bool;
 }

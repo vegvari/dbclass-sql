@@ -34,15 +34,16 @@ class CreateTableTest extends TestCase
     public function test_database_name(callable $obj)
     {
         $obj1 = $obj('foo');
+        $this->assertSame(null, $obj1->getDatabaseName());
         $this->assertSame(false, $obj1->hasDatabaseName());
 
         $obj1->setDatabaseName('bar');
-        $this->assertSame(true, $obj1->hasDatabaseName());
         $this->assertSame('bar', $obj1->getDatabaseName());
+        $this->assertSame(true, $obj1->hasDatabaseName());
 
         $obj2 = $obj('foo', 'bar');
-        $this->assertSame(true, $obj2->hasDatabaseName());
         $this->assertSame('bar', $obj2->getDatabaseName());
+        $this->assertSame(true, $obj2->hasDatabaseName());
     }
 
     /**
@@ -114,13 +115,15 @@ class CreateTableTest extends TestCase
     public function test_comment(callable $obj)
     {
         $obj = $obj('foo');
+        $this->assertSame(null, $obj->getComment());
         $this->assertSame(false, $obj->hasComment());
 
         $obj->setComment('bar');
-        $this->assertSame(true, $obj->hasComment());
         $this->assertSame('bar', $obj->getComment());
+        $this->assertSame(true, $obj->hasComment());
 
         $obj->setComment();
+        $this->assertSame(null, $obj->getComment());
         $this->assertSame(false, $obj->hasComment());
     }
 }
