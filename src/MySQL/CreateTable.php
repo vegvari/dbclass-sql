@@ -32,7 +32,7 @@ final class CreateTable implements Interfaces\CreateTable
         return $this->name;
     }
 
-    public function setDatabaseName(string $database_name = null): Interfaces\CreateTable
+    public function setDatabaseName(?string $database_name = null): Interfaces\CreateTable
     {
         $this->database_name = $database_name;
         return $this;
@@ -75,7 +75,7 @@ final class CreateTable implements Interfaces\CreateTable
         return $this->engine;
     }
 
-    public function setComment(string $comment = null): Interfaces\CreateTable
+    public function setComment(?string $comment = null): Interfaces\CreateTable
     {
         $this->comment = $comment;
         return $this;
