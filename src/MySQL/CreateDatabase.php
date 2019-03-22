@@ -45,12 +45,8 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         return $this->setIfNotExists(true);
     }
 
-    public function setCharset(string $charset = null): Interfaces\CreateDatabase
+    public function setCharset(string $charset = self::DEFAULT_CHARSET): Interfaces\CreateDatabase
     {
-        if ($charset === null) {
-            $charset = self::DEFAULT_CHARSET;
-        }
-
         $this->charset = $charset;
         return $this;
     }
@@ -60,12 +56,8 @@ final class CreateDatabase implements Interfaces\CreateDatabase
         return $this->charset;
     }
 
-    public function setCollation(string $collation = null): Interfaces\CreateDatabase
+    public function setCollation(string $collation = self::DEFAULT_COLLATION): Interfaces\CreateDatabase
     {
-        if ($collation === null) {
-            $collation = self::DEFAULT_COLLATION;
-        }
-
         $this->collation = $collation;
         return $this;
     }

@@ -64,12 +64,8 @@ final class CreateTable implements Interfaces\CreateTable
         return $this->setIfNotExists(true);
     }
 
-    public function setEngine(string $engine = null): Interfaces\CreateTable
+    public function setEngine(string $engine = self::DEFAULT_ENGINE): Interfaces\CreateTable
     {
-        if ($engine === null) {
-            $engine = self::DEFAULT_ENGINE;
-        }
-
         $this->engine = $engine;
         return $this;
     }
@@ -79,12 +75,8 @@ final class CreateTable implements Interfaces\CreateTable
         return $this->engine;
     }
 
-    public function setCharset(string $charset = null): Interfaces\CreateTable
+    public function setCharset(string $charset = self::DEFAULT_CHARSET): Interfaces\CreateTable
     {
-        if ($charset === null) {
-            $charset = self::DEFAULT_CHARSET;
-        }
-
         $this->charset = $charset;
         return $this;
     }
@@ -94,12 +86,8 @@ final class CreateTable implements Interfaces\CreateTable
         return $this->charset;
     }
 
-    public function setCollation(string $collation = null): Interfaces\CreateTable
+    public function setCollation(string $collation = self::DEFAULT_COLLATION): Interfaces\CreateTable
     {
-        if ($collation === null) {
-            $collation = self::DEFAULT_COLLATION;
-        }
-
         $this->collation = $collation;
         return $this;
     }

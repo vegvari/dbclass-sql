@@ -17,13 +17,13 @@ interface CreateTable extends DDLStatement
     public function getIfNotExists(): bool;
     public function ifNotExists(): self;
 
-    public function setEngine(string $engine = null): self;
+    public function setEngine(string $engine = self::DEFAULT_ENGINE): self;
     public function getEngine(): string;
 
-    public function setCharset(string $charset = null): self;
+    public function setCharset(string $charset = self::DEFAULT_CHARSET): self;
     public function getCharset(): string;
 
-    public function setCollation(string $collation = null): self;
+    public function setCollation(string $collation = self::DEFAULT_COLLATION): self;
     public function getCollation(): string;
 
     public function setComment(string $comment = null): self;
