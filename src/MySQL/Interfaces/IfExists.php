@@ -4,7 +4,7 @@ namespace DBClass\SQL\MySQL\Interfaces;
 
 interface IfExists
 {
-    public function setIfExists(bool $value): self;
+    public function setIfExists(bool $value);
     public function getIfExists(): bool;
-    public function ifExists(): self;
+    public function ifExists();
 }

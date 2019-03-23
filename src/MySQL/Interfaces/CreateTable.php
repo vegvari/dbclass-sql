@@ -6,10 +6,10 @@ interface CreateTable extends DDLStatement, Name, IfNotExists, Charset, Collatio
 {
     const DEFAULT_ENGINE = 'InnoDB';
 
-    public function setDatabaseName(?string $database_name = null): self;
+    public function setDatabaseName(?string $database_name = null);
     public function getDatabaseName(): ?string;
     public function hasDatabaseName(): bool;
 
-    public function setEngine(string $engine = self::DEFAULT_ENGINE): self;
+    public function setEngine(string $engine = self::DEFAULT_ENGINE);
     public function getEngine(): string;
 }
