@@ -4,12 +4,12 @@ namespace DBClass\SQL\MySQL;
 
 abstract class Drop
 {
-    public static function database(string $name): Interfaces\DropDatabase
+    final public static function database(string $name): Interfaces\DDLStatement
     {
         return new DropDatabase($name);
     }
 
-    public static function table(string $name): Interfaces\DropTable
+    final public static function table(string $name): Interfaces\DDLStatement
     {
         return new DropTable($name);
     }

@@ -4,8 +4,6 @@ namespace DBClass\SQL\MySQL\Interfaces;
 
 interface CreateTable extends DDLStatement, Name, IfNotExists, Charset, Collation, Comment
 {
-    const DEFAULT_ENGINE = 'InnoDB';
-
     public function setDatabaseName(?string $database_name = null);
     public function getDatabaseName(): ?string;
     public function hasDatabaseName(): bool;

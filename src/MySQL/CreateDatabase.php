@@ -2,7 +2,7 @@
 
 namespace DBClass\SQL\MySQL;
 
-final class CreateDatabase implements Interfaces\CreateDatabase
+class CreateDatabase implements Interfaces\DDLStatement
 {
     use Traits\Name;
     use Traits\Builder;
@@ -12,7 +12,7 @@ final class CreateDatabase implements Interfaces\CreateDatabase
 
     const DEFAULT_BUILDER_CLASS = CreateDatabaseBuilder::class;
 
-    public function __construct(string $name)
+    final public function __construct(string $name)
     {
         $this->setName($name);
     }

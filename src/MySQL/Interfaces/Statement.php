@@ -2,7 +2,7 @@
 
 namespace DBClass\SQL\MySQL\Interfaces;
 
-interface Statement
+interface Statement extends MySQL
 {
     public function setBuilder(Builder $builder): self;
     public function getBuilder(): Builder;
