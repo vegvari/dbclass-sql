@@ -2,9 +2,6 @@
 
 namespace DBClass\SQL\MySQL\Interfaces;
 
-interface DropDatabase extends DDLStatement, Name
+interface DropDatabase extends DDLStatement, Name, IfExists
 {
-    public function setIfExists(bool $value): self;
-    public function getIfExists(): bool;
-    public function ifExists(): self;
 }

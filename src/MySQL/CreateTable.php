@@ -8,10 +8,10 @@ final class CreateTable implements Interfaces\CreateTable
     use Traits\Builder;
     use Traits\Charset;
     use Traits\Collation;
+    use Traits\IfNotExists;
 
     const DEFAULT_BUILDER_CLASS = CreateTableBuilder::class;
 
-    private $if_not_exists = false;
     private $engine = self::DEFAULT_ENGINE;
     private $comment;
 
@@ -35,22 +35,6 @@ final class CreateTable implements Interfaces\CreateTable
     public function hasDatabaseName(): bool
     {
         return $this->database_name !== null;
-    }
-
-    public function setIfNotExists(bool $value): Interfaces\CreateTable
-    {
-        $this->if_not_exists = $value;
-        return $this;
-    }
-
-    public function getIfNotExists(): bool
-    {
-        return $this->if_not_exists;
-    }
-
-    public function ifNotExists(): Interfaces\CreateTable
-    {
-        return $this->setIfNotExists(true);
     }
 
     public function setEngine(string $engine = self::DEFAULT_ENGINE): Interfaces\CreateTable

@@ -6,35 +6,12 @@ final class DropTable implements Interfaces\DropTable
 {
     use Traits\Name;
     use Traits\Builder;
+    use Traits\IfExists;
 
     const DEFAULT_BUILDER_CLASS = DropTableBuilder::class;
-
-    private $if_exists = false;
 
     public function __construct(string $name)
     {
         $this->setName($name);
-    }
-
-    public function setIfExists(bool $value): Interfaces\DropTable
-    {
-        $this->if_exists = $value;
-        return $this;
-    }
-
-    public function getIfExists(): bool
-    {
-        return $this->if_exists;
-    }
-
-    public function ifExists(): Interfaces\DropTable
-    {
-        return $this->setIfExists(true);
-    }
-
-    public function ifNotExists(): Interfaces\DropTable
-    {
-        $this->if_exists = false;
-        return $this;
     }
 }
