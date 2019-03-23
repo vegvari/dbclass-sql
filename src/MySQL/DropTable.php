@@ -2,7 +2,7 @@
 
 namespace DBClass\SQL\MySQL;
 
-class DropTable implements Interfaces\DropTable
+class DropTable implements Interfaces\DDLStatement
 {
     use Traits\Name;
     use Traits\Builder;

@@ -2,7 +2,7 @@
 
 namespace DBClass\SQL\MySQL;
 
-class CreateTable implements Interfaces\CreateTable
+class CreateTable implements Interfaces\DDLStatement
 {
     use Traits\Name;
     use Traits\Builder;
@@ -21,7 +21,7 @@ class CreateTable implements Interfaces\CreateTable
         $this->setDatabaseName($database_name);
     }
 
-    final public function setDatabaseName(?string $database_name = null): Interfaces\CreateTable
+    final public function setDatabaseName(?string $database_name = null): self
     {
         $this->database_name = $database_name;
         return $this;
@@ -37,7 +37,7 @@ class CreateTable implements Interfaces\CreateTable
         return $this->database_name !== null;
     }
 
-    final public function setEngine(string $engine = self::DEFAULT_ENGINE): Interfaces\CreateTable
+    final public function setEngine(string $engine = self::DEFAULT_ENGINE): self
     {
         $this->engine = $engine;
         return $this;
