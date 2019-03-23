@@ -4,6 +4,7 @@ namespace DBClass\SQL\MySQL;
 
 final class DropDatabase implements Interfaces\DropDatabase
 {
+    use Traits\Name;
     use Traits\Builder;
 
     const DEFAULT_BUILDER_CLASS = DropDatabaseBuilder::class;
@@ -14,17 +15,6 @@ final class DropDatabase implements Interfaces\DropDatabase
     public function __construct(string $name)
     {
         $this->setName($name);
-    }
-
-    public function setName(string $name): Interfaces\DropDatabase
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function setIfExists(bool $value): Interfaces\DropDatabase

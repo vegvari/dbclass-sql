@@ -4,27 +4,16 @@ namespace DBClass\SQL\MySQL;
 
 final class DropTable implements Interfaces\DropTable
 {
+    use Traits\Name;
     use Traits\Builder;
 
     const DEFAULT_BUILDER_CLASS = DropTableBuilder::class;
 
-    private $name;
     private $if_exists = false;
 
     public function __construct(string $name)
     {
         $this->setName($name);
-    }
-
-    public function setName(string $name): Interfaces\DropTable
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function setIfExists(bool $value): Interfaces\DropTable

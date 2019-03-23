@@ -2,12 +2,9 @@
 
 namespace DBClass\SQL\MySQL\Interfaces;
 
-interface CreateTable extends DDLStatement, Charset, Collation
+interface CreateTable extends DDLStatement, Name, Charset, Collation
 {
     const DEFAULT_ENGINE = 'InnoDB';
-
-    public function setName(string $name): self;
-    public function getName(): string;
 
     public function setDatabaseName(?string $database_name = null): self;
     public function getDatabaseName(): ?string;

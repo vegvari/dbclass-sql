@@ -4,13 +4,13 @@ namespace DBClass\SQL\MySQL;
 
 final class CreateTable implements Interfaces\CreateTable
 {
+    use Traits\Name;
     use Traits\Builder;
     use Traits\Charset;
     use Traits\Collation;
 
     const DEFAULT_BUILDER_CLASS = CreateTableBuilder::class;
 
-    private $name;
     private $if_not_exists = false;
     private $engine = self::DEFAULT_ENGINE;
     private $comment;
@@ -19,17 +19,6 @@ final class CreateTable implements Interfaces\CreateTable
     {
         $this->setName($name);
         $this->setDatabaseName($database_name);
-    }
-
-    public function setName(string $name): Interfaces\CreateTable
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function setDatabaseName(?string $database_name = null): Interfaces\CreateTable
