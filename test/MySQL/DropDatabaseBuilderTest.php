@@ -10,7 +10,6 @@ class DropDatabaseBuilderTest extends TestCase
     {
         return [
             [function ($name) { return new DropDatabase($name); }],
-            [function ($name) { return Drop::database($name); }],
         ];
     }
 

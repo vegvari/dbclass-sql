@@ -10,7 +10,6 @@ class CreateDatabaseBuilderTest extends TestCase
     {
         return [
             [function ($name) { return new CreateDatabase($name); }],
-            [function ($name) { return Create::database($name); }],
         ];
     }
 

@@ -6,11 +6,6 @@ use PHPUnit\Framework\TestCase;
 use DBClass\SQL\MySQL\Drop;
 use DBClass\SQL\MySQL\Create;
 
-class StatementFixture implements Interfaces\Statement
-{
-    use Traits\Builder;
-}
-
 class BuilderFixture implements Interfaces\Builder
 {
     public function getBuild(Interfaces\Statement $statement): string
@@ -24,7 +19,6 @@ class BuilderTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function () { return new StatementFixture(); }],
             [function ($name) { return Create::database($name); }],
             [function ($name) { return Create::table($name); }],
             [function ($name) { return Drop::database($name); }],

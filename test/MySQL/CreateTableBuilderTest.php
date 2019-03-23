@@ -10,7 +10,6 @@ class CreateTableBuilderTest extends TestCase
     {
         return [
             [function ($name) { return new CreateTable($name); }],
-            [function ($name) { return Create::table($name); }],
         ];
     }
 

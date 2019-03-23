@@ -10,7 +10,6 @@ class DropTableBuilderTest extends TestCase
     {
         return [
             [function ($name) { return new DropTable($name); }],
-            [function ($name) { return Drop::table($name); }],
         ];
     }
 
