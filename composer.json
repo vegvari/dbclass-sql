@@ -22,7 +22,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "DBClass\\SQL\\": "tests/"
+            "DBClass\\SQL\\": "test/"
         }
     }
 }
