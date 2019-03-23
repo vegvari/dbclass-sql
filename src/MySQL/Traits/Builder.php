@@ -9,7 +9,7 @@ trait Builder
     private $builder;
     private $data = [];
 
-final     public function setBuilder(Interfaces\Builder $builder): Interfaces\Statement
+    final public function setBuilder(Interfaces\Builder $builder): Interfaces\Statement
     {
         $this->builder = $builder;
         return $this;
