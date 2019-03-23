@@ -2,7 +2,7 @@
 
 namespace DBClass\SQL\MySQL\Interfaces;
 
-interface CreateTable extends DDLStatement, Name, IfNotExists, Charset, Collation
+interface CreateTable extends DDLStatement, Name, IfNotExists, Charset, Collation, Comment
 {
     const DEFAULT_ENGINE = 'InnoDB';
 
@@ -12,8 +12,4 @@ interface CreateTable extends DDLStatement, Name, IfNotExists, Charset, Collatio
 
     public function setEngine(string $engine = self::DEFAULT_ENGINE): self;
     public function getEngine(): string;
-
-    public function setComment(?string $comment = null): self;
-    public function getComment(): ?string;
-    public function hasComment(): bool;
 }
