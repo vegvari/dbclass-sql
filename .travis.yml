@@ -3,13 +3,12 @@ env:
         - CC_TEST_REPORTER_ID=fd41dbea1cb2f2f1ee40154b2d52ee0d36bfb6f328344ce2e9b099ca07e884c0
 language: php
 php:
-    - 7.1
     - 7.2
-script: phpunit
+script: phpunit --coverage-clover clover.xml
 before_script:
     - composer install --no-interaction
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
     - ./cc-test-reporter before-build
 after_script:
-    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+    - ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT
