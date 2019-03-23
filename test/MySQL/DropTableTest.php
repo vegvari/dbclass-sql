@@ -4,29 +4,13 @@ namespace DBClass\SQL\MySQL;
 
 use PHPUnit\Framework\TestCase;
 
-class DropTableFixture extends DropTable implements Interfaces\DropTable
-{
-}
-
 class DropTableTest extends TestCase
 {
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new DropTableFixture($name); }],
+            [function ($name) { return new Fixtures\DropTableFixture($name); }],
         ];
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_name(callable $obj)
-    {
-        $obj = $obj('foo');
-        $this->assertSame('foo', $obj->getName());
-
-        $obj->setName('bar');
-        $this->assertSame('bar', $obj->getName());
     }
 
     /**

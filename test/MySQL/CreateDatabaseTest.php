@@ -4,29 +4,13 @@ namespace DBClass\SQL\MySQL;
 
 use PHPUnit\Framework\TestCase;
 
-class CreateDatabaseFixture extends CreateDatabase implements Interfaces\CreateDatabase
-{
-}
-
 class CreateDatabaseTest extends TestCase
 {
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new CreateDatabaseFixture($name); }],
+            [function ($name) { return new Fixtures\CreateDatabaseFixture($name); }],
         ];
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_name(callable $obj)
-    {
-        $obj = $obj('foo');
-        $this->assertSame('foo', $obj->getName());
-
-        $obj->setName('bar');
-        $this->assertSame('bar', $obj->getName());
     }
 
     /**
