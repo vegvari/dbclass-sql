@@ -2,8 +2,17 @@
 
 namespace DBClass\SQL\MySQL;
 
-class DropTableBuilderTest extends DropTableTest
+use PHPUnit\Framework\TestCase;
+
+class DropTableBuilderTest extends TestCase
 {
+    public function getImplementations(): array
+    {
+        return [
+            [function ($name) { return new Fixtures\DropTableFixture($name); }],
+        ];
+    }
+
     /**
      * @dataProvider getImplementations
      */

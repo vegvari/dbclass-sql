@@ -2,8 +2,17 @@
 
 namespace DBClass\SQL\MySQL;
 
-class CreateTableBuilderTest extends CreateTableTest
+use PHPUnit\Framework\TestCase;
+
+class CreateTableBuilderTest extends TestCase
 {
+    public function getImplementations(): array
+    {
+        return [
+            [function ($name, $database_name = null) { return new Fixtures\CreateTableFixture($name, $database_name); }],
+        ];
+    }
+
     /**
      * @dataProvider getImplementations
      */

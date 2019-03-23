@@ -67,36 +67,6 @@ class CreateTableTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test_charset(callable $obj)
-    {
-        $obj = $obj('foo');
-        $this->assertSame('utf8mb4', $obj->getCharset());
-
-        $obj->setCharset('bar');
-        $this->assertSame('bar', $obj->getCharset());
-
-        $obj->setCharset();
-        $this->assertSame('utf8mb4', $obj->getCharset());
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_collation(callable $obj)
-    {
-        $obj = $obj('foo');
-        $this->assertSame('utf8mb4_unicode_ci', $obj->getCollation());
-
-        $obj->setCollation('bar');
-        $this->assertSame('bar', $obj->getCollation());
-
-        $obj->setCollation();
-        $this->assertSame('utf8mb4_unicode_ci', $obj->getCollation());
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
     public function test_comment(callable $obj)
     {
         $obj = $obj('foo');
