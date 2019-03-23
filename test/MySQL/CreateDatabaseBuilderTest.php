@@ -2,17 +2,8 @@
 
 namespace DBClass\SQL\MySQL;
 
-use PHPUnit\Framework\TestCase;
-
-class CreateDatabaseBuilderTest extends TestCase
+class CreateDatabaseBuilderTest extends CreateDatabaseTest
 {
-    public function getImplementations(): array
-    {
-        return [
-            [function ($name) { return new CreateDatabase($name); }],
-        ];
-    }
-
     /**
      * @dataProvider getImplementations
      */

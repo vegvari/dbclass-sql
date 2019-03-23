@@ -2,17 +2,8 @@
 
 namespace DBClass\SQL\MySQL;
 
-use PHPUnit\Framework\TestCase;
-
-class DropDatabaseBuilderTest extends TestCase
+class DropDatabaseBuilderTest extends DropDatabaseTest
 {
-    public function getImplementations(): array
-    {
-        return [
-            [function ($name) { return new DropDatabase($name); }],
-        ];
-    }
-
     /**
      * @dataProvider getImplementations
      */

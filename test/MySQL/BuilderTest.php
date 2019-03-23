@@ -3,8 +3,6 @@
 namespace DBClass\SQL\MySQL;
 
 use PHPUnit\Framework\TestCase;
-use DBClass\SQL\MySQL\Drop;
-use DBClass\SQL\MySQL\Create;
 
 class BuilderFixture implements Interfaces\Builder
 {
