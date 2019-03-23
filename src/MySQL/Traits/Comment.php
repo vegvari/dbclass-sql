@@ -2,13 +2,11 @@
 
 namespace DBClass\SQL\MySQL\Traits;
 
-use DBClass\SQL\MySQL\Interfaces;
-
 trait Comment
 {
     private $comment;
 
-    public function setComment(?string $comment = null): Interfaces\Comment
+    public function setComment(?string $comment = null): self
     {
         $this->comment = $comment;
         return $this;

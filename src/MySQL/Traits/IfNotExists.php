@@ -2,13 +2,11 @@
 
 namespace DBClass\SQL\MySQL\Traits;
 
-use DBClass\SQL\MySQL\Interfaces;
-
 trait IfNotExists
 {
     private $if_not_exists = false;
 
-    public function setIfNotExists(bool $value): Interfaces\IfNotExists
+    public function setIfNotExists(bool $value): self
     {
         $this->if_not_exists = $value;
         return $this;
@@ -19,7 +17,7 @@ trait IfNotExists
         return $this->if_not_exists;
     }
 
-    public function ifNotExists(): Interfaces\IfNotExists
+    public function ifNotExists(): self
     {
         return $this->setIfNotExists(true);
     }

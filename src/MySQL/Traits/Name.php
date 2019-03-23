@@ -2,13 +2,11 @@
 
 namespace DBClass\SQL\MySQL\Traits;
 
-use DBClass\SQL\MySQL\Interfaces;
-
 trait Name
 {
     private $name;
 
-    public function setName(string $name): Interfaces\Name
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;

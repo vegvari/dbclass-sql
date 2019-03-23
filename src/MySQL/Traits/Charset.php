@@ -2,13 +2,11 @@
 
 namespace DBClass\SQL\MySQL\Traits;
 
-use DBClass\SQL\MySQL\Interfaces;
-
 trait Charset
 {
     private $charset = self::DEFAULT_CHARSET;
 
-    public function setCharset(string $charset = self::DEFAULT_CHARSET): Interfaces\Charset
+    public function setCharset(string $charset = self::DEFAULT_CHARSET): self
     {
         $this->charset = $charset;
         return $this;
