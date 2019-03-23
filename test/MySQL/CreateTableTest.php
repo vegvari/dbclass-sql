@@ -34,24 +34,6 @@ class CreateTableTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test_if_not_exists(callable $obj)
-    {
-        $obj = $obj('foo');
-        $this->assertSame(false, $obj->getIfNotExists());
-
-        $obj->setIfNotExists(true);
-        $this->assertSame(true, $obj->getIfNotExists());
-
-        $obj->setIfNotExists(false);
-        $this->assertSame(false, $obj->getIfNotExists());
-
-        $obj->ifNotExists();
-        $this->assertSame(true, $obj->getIfNotExists());
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
     public function test_engine(callable $obj)
     {
         $obj = $obj('foo');
@@ -62,23 +44,5 @@ class CreateTableTest extends TestCase
 
         $obj->setEngine();
         $this->assertSame('InnoDB', $obj->getEngine());
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_comment(callable $obj)
-    {
-        $obj = $obj('foo');
-        $this->assertSame(null, $obj->getComment());
-        $this->assertSame(false, $obj->hasComment());
-
-        $obj->setComment('bar');
-        $this->assertSame('bar', $obj->getComment());
-        $this->assertSame(true, $obj->hasComment());
-
-        $obj->setComment();
-        $this->assertSame(null, $obj->getComment());
-        $this->assertSame(false, $obj->hasComment());
     }
 }
