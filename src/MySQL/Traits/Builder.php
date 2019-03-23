@@ -9,13 +9,13 @@ trait Builder
     private $builder;
     private $data = [];
 
-    public function setBuilder(Interfaces\Builder $builder): Interfaces\Statement
+final     public function setBuilder(Interfaces\Builder $builder): Interfaces\Statement
     {
         $this->builder = $builder;
         return $this;
     }
 
-    public function getBuilder(): Interfaces\Builder
+    final public function getBuilder(): Interfaces\Builder
     {
         if ($this->hasBuilder()) {
             return $this->builder;
@@ -25,17 +25,17 @@ trait Builder
         return new $builder();
     }
 
-    public function hasBuilder(): bool
+    final public function hasBuilder(): bool
     {
         return $this->builder !== null;
     }
 
-    public function getBuild(): string
+    final public function getBuild(): string
     {
         return $this->getBuilder()->getBuild($this);
     }
 
-    public function getData(): array
+    final public function getData(): array
     {
         return $this->data;
     }

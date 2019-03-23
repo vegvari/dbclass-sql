@@ -6,13 +6,13 @@ trait Collation
 {
     private $collation = self::DEFAULT_COLLATION;
 
-    public function setCollation(string $collation = self::DEFAULT_COLLATION): self
+    final public function setCollation(string $collation = self::DEFAULT_COLLATION): self
     {
         $this->collation = $collation;
         return $this;
     }
 
-    public function getCollation(): string
+    final public function getCollation(): string
     {
         return $this->collation;
     }

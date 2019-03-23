@@ -6,18 +6,18 @@ trait Comment
 {
     private $comment;
 
-    public function setComment(?string $comment = null): self
+    final public function setComment(?string $comment = null): self
     {
         $this->comment = $comment;
         return $this;
     }
 
-    public function getComment(): ?string
+    final public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    public function hasComment(): bool
+    final public function hasComment(): bool
     {
         return $this->comment !== null;
     }

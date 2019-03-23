@@ -6,18 +6,18 @@ trait IfNotExists
 {
     private $if_not_exists = false;
 
-    public function setIfNotExists(bool $value): self
+    final public function setIfNotExists(bool $value): self
     {
         $this->if_not_exists = $value;
         return $this;
     }
 
-    public function getIfNotExists(): bool
+    final public function getIfNotExists(): bool
     {
         return $this->if_not_exists;
     }
 
-    public function ifNotExists(): self
+    final public function ifNotExists(): self
     {
         return $this->setIfNotExists(true);
     }
