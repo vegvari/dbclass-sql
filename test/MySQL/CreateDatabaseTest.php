@@ -6,13 +6,16 @@ use PHPUnit\Framework\TestCase;
 use DBClass\SQL\MySQL\Create;
 use DBClass\SQL\MySQL\CreateDatabase;
 
+class CreateDatabaseFixture extends CreateDatabase implements Interfaces\CreateDatabase
+{
+}
+
 class CreateDatabaseTest extends TestCase
 {
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new CreateDatabase($name); }],
-            [function ($name) { return Create::database($name); }],
+            [function ($name) { return new CreateDatabaseFixture($name); }],
         ];
     }
 

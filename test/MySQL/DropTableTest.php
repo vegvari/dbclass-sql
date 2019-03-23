@@ -6,13 +6,16 @@ use PHPUnit\Framework\TestCase;
 use DBClass\SQL\MySQL\Drop;
 use DBClass\SQL\MySQL\DropTable;
 
+class DropTableFixture extends DropTable implements Interfaces\DropTable
+{
+}
+
 class DropTableTest extends TestCase
 {
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new DropTable($name); }],
-            [function ($name) { return Drop::table($name); }],
+            [function ($name) { return new DropTableFixture($name); }],
         ];
     }
 

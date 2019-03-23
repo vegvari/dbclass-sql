@@ -6,13 +6,16 @@ use PHPUnit\Framework\TestCase;
 use DBClass\SQL\MySQL\Create;
 use DBClass\SQL\MySQL\CreateTable;
 
+class CreateTableFixture extends CreateTable implements Interfaces\CreateTable
+{
+}
+
 class CreateTableTest extends TestCase
 {
     public function getImplementations(): array
     {
         return [
-            [function ($name, $database_name = null) { return new CreateTable($name, $database_name); }],
-            [function ($name, $database_name = null) { return Create::table($name, $database_name); }],
+            [function ($name, $database_name = null) { return new CreateTableFixture($name, $database_name); }],
         ];
     }
 
