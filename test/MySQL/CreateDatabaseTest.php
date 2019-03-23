@@ -3,8 +3,6 @@
 namespace DBClass\SQL\MySQL;
 
 use PHPUnit\Framework\TestCase;
-use DBClass\SQL\MySQL\Create;
-use DBClass\SQL\MySQL\CreateDatabase;
 
 class CreateDatabaseFixture extends CreateDatabase implements Interfaces\CreateDatabase
 {

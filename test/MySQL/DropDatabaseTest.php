@@ -3,8 +3,6 @@
 namespace DBClass\SQL\MySQL;
 
 use PHPUnit\Framework\TestCase;
-use DBClass\SQL\MySQL\Drop;
-use DBClass\SQL\MySQL\DropDatabase;
 
 class DropDatabaseFixture extends DropDatabase implements Interfaces\DropDatabase
 {
