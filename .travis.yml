@@ -6,7 +6,7 @@ php:
     - 7.2
 script: phpunit --coverage-clover clover.xml
 before_script:
-    - composer install --no-interaction
+    - composer install --no-dev --no-interaction
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
     - ./cc-test-reporter before-build
