@@ -2,12 +2,8 @@
 
 namespace DBClass\SQL\MySQL\Interfaces;
 
-interface CreateTable extends DDLStatement, Name, IfNotExists, Charset, Collation, Comment
+interface CreateTable extends DDLStatement, Name, DatabaseName, IfNotExists, Charset, Collation, Comment
 {
-    public function setDatabaseName(?string $database_name = null);
-    public function getDatabaseName(): ?string;
-    public function hasDatabaseName(): bool;
-
     public function setEngine(string $engine = self::DEFAULT_ENGINE);
     public function getEngine(): string;
 }
