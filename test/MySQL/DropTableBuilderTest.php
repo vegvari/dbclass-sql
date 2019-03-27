@@ -26,6 +26,17 @@ class DropTableBuilderTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
+    public function test_database_name(callable $obj)
+    {
+        $obj = $obj('foo');
+        $obj->setDatabaseName('bar');
+        $this->assertSame('DROP TABLE `bar`.`foo`;', $obj->getBuild());
+        $this->assertSame([], $obj->getData());
+    }
+
+    /**
+     * @dataProvider getImplementations
+     */
     public function test_if_exists(callable $obj)
     {
         $obj = $obj('foo');

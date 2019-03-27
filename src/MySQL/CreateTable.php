@@ -10,6 +10,7 @@ class CreateTable implements Interfaces\DDLStatement
     use Traits\Comment;
     use Traits\Collation;
     use Traits\IfNotExists;
+    use Traits\DatabaseName;
 
     const DEFAULT_BUILDER_CLASS = CreateTableBuilder::class;
 
@@ -19,22 +20,6 @@ class CreateTable implements Interfaces\DDLStatement
     {
         $this->setName($name);
         $this->setDatabaseName($database_name);
-    }
-
-    final public function setDatabaseName(?string $database_name = null): self
-    {
-        $this->database_name = $database_name;
-        return $this;
-    }
-
-    final public function getDatabaseName(): ?string
-    {
-        return $this->database_name;
-    }
-
-    final public function hasDatabaseName(): bool
-    {
-        return $this->database_name !== null;
     }
 
     final public function setEngine(string $engine = self::DEFAULT_ENGINE): self

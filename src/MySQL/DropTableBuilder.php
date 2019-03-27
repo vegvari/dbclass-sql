@@ -14,7 +14,11 @@ final class DropTableBuilder implements Interfaces\Builder
             $build[] = 'IF EXISTS';
         }
 
-        $build[] = sprintf('`%s`', $statement->getName());
+        $name = sprintf('`%s`', $statement->getName());
+        if ($statement->hasDatabaseName()) {
+            $name = sprintf('`%s`.', $statement->getDatabaseName()) . $name;
+        }
+        $build[] = $name;
 
         return implode(' ', $build) . ';';
     }

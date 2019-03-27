@@ -18,8 +18,8 @@ final class CreateTableBuilder implements Interfaces\Builder
         if ($statement->hasDatabaseName()) {
             $name = sprintf('`%s`.', $statement->getDatabaseName()) . $name;
         }
-
         $build[] = $name;
+
         $build[] = sprintf('ENGINE `%s`', $statement->getEngine());
         $build[] = sprintf('CHARACTER SET `%s`', $statement->getCharset());
         $build[] = sprintf('COLLATE `%s`', $statement->getCollation());
