@@ -19,13 +19,9 @@ interface Column
     public function getType(): string;
     public function isTypeValid(string $type): bool;
 
-    public function setUnsigned(bool $unsigned = true);
-    public function isUnsigned(): bool;
-
     public function setNullable(bool $nullable = true);
     public function isNullable(): bool;
 
-    public function setAutoIncrement(bool $value);
     public function isAutoIncrement(): bool;
 
     public function setComment(?string $comment = null);

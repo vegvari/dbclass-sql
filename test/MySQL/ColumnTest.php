@@ -40,11 +40,5 @@ class ColumnTest extends TestCase
     {
         $obj = new ColumnTestFixture();
         $this->assertSame(false, $obj->isAutoIncrement());
-
-        $obj->setAutoIncrement();
-        $this->assertSame(true, $obj->isAutoIncrement());
-
-        $obj->setAutoIncrement(false);
-        $this->assertSame(false, $obj->isAutoIncrement());
     }
 }

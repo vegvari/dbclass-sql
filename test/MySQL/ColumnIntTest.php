@@ -24,6 +24,18 @@ class ColumnIntTest extends TestCase
         $this->assertSame(ColumnInt::DIGITS['bigint'], $obj->getDigits());
     }
 
+    public function test_auto_increment()
+    {
+        $obj = Column::int('foo', 1);
+        $this->assertSame(false, $obj->isAutoIncrement());
+
+        $obj->setAutoIncrement();
+        $this->assertSame(true, $obj->isAutoIncrement());
+
+        $obj->setAutoIncrement(false);
+        $this->assertSame(false, $obj->isAutoIncrement());
+    }
+
     public function test_default()
     {
         $obj = Column::int('foo', 1);

@@ -2,8 +2,10 @@
 
 namespace DBClass\MySQL;
 
-class ColumnInt extends Column
+class ColumnInt extends Column implements Interfaces\ColumnInt
 {
+    use Traits\Unsigned;
+
     const TYPES = [
         'tinyint',
         'smallint',
@@ -21,6 +23,7 @@ class ColumnInt extends Column
     ];
 
     private $digits;
+    private $auto_increment = false;
     private $default;
 
     public function __construct(string $name, string $type, ?int $digits = null)
@@ -53,6 +56,17 @@ class ColumnInt extends Column
         }
 
         return $digits;
+    }
+
+    final public function setAutoIncrement(bool $value = true): self
+    {
+        $this->auto_increment = $value;
+        return $this;
+    }
+
+    final public function isAutoIncrement(): bool
+    {
+        return $this->auto_increment;
     }
 
     final public function setDefault(?int $value = null): self

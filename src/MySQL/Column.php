@@ -11,12 +11,10 @@ abstract class Column implements Interfaces\Column
     use Traits\Name;
     use Traits\Comment;
     use Traits\Nullable;
-    use Traits\Unsigned;
     use Traits\TableName;
     use Traits\DatabaseName;
 
     private $type;
-    private $auto_increment = false;
 
     abstract public function isTypeValid(string $type): bool;
     abstract public function getBuild(): string;
@@ -36,15 +34,9 @@ abstract class Column implements Interfaces\Column
         return $this->type;
     }
 
-    final public function setAutoIncrement(bool $value = true): self
+    public function isAutoIncrement(): bool
     {
-        $this->auto_increment = $value;
-        return $this;
-    }
-
-    final public function isAutoIncrement(): bool
-    {
-        return $this->auto_increment;
+        return false;
     }
 
     final public static function tinyint(string $name, ?int $digits = null): self
