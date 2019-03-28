@@ -23,8 +23,10 @@ class DatabaseNameTest extends TestCase
     {
         $obj = $obj('foo');
         $this->assertSame(null, $obj->getDatabaseName());
+        $this->assertSame(false, $obj->hasDatabaseName());
 
         $obj->setDatabaseName('bar');
         $this->assertSame('bar', $obj->getDatabaseName());
+        $this->assertSame(true, $obj->hasDatabaseName());
     }
 }
