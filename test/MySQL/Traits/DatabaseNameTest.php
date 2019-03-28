@@ -12,7 +12,7 @@ class DatabaseNameTest extends TestCase
         return [
             [function ($name) { return new Fixtures\CreateTableFixture($name); }],
             [function ($name) { return new Fixtures\DropTableFixture($name); }],
-            [function ($name) { return new Fixtures\IntColumnFixture($name, 'int'); }],
+            [function ($name) { return new Fixtures\ColumnIntFixture($name, 'int'); }],
         ];
     }
 

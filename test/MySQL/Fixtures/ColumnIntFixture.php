@@ -2,9 +2,9 @@
 
 namespace DBClass\MySQL\Fixtures;
 
-use DBClass\MySQL\Columns;
+use DBClass\MySQL\ColumnInt;
 use DBClass\MySQL\Interfaces;
 
-class IntColumnFixture extends Columns\IntColumn
+class ColumnIntFixture extends ColumnInt
 {
 }

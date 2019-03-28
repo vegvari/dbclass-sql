@@ -1,11 +1,8 @@
 <?php
 
-namespace DBClass\MySQL\Columns;
+namespace DBClass\MySQL;
 
-use DBClass\MySQL\Column;
-use DBClass\MySQL\Interfaces;
-
-class IntColumn extends Column
+class ColumnInt extends Column
 {
     const DIGITS = [
         'tinyint'   =>  4,

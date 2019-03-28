@@ -48,26 +48,26 @@ abstract class Column implements Interfaces\Column
 
     final public static function tinyint(string $name, ?int $digits = null): Interfaces\Column
     {
-        return new Columns\IntColumn($name, 'tinyint', $digits);
+        return new ColumnInt($name, 'tinyint', $digits);
     }
 
     final public static function smallint(string $name, ?int $digits = null): Interfaces\Column
     {
-        return new Columns\IntColumn($name, 'smallint', $digits);
+        return new ColumnInt($name, 'smallint', $digits);
     }
 
     final public static function mediumint(string $name, ?int $digits = null): Interfaces\Column
     {
-        return new Columns\IntColumn($name, 'mediumint', $digits);
+        return new ColumnInt($name, 'mediumint', $digits);
     }
 
     final public static function int(string $name, ?int $digits = null): Interfaces\Column
     {
-        return new Columns\IntColumn($name, 'int', $digits);
+        return new ColumnInt($name, 'int', $digits);
     }
 
     final public static function bigint(string $name, ?int $digits = null): Interfaces\Column
     {
-        return new Columns\IntColumn($name, 'bigint', $digits);
+        return new ColumnInt($name, 'bigint', $digits);
     }
 }

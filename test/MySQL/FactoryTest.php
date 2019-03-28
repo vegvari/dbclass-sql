@@ -22,10 +22,10 @@ class FactoryTest extends TestCase
 
     public function test_int_column()
     {
-        $this->assertEquals(Column::tinyint('foo', 1), new Columns\IntColumn('foo', 'tinyint', 1));
-        $this->assertEquals(Column::smallint('foo', 1), new Columns\IntColumn('foo', 'smallint', 1));
-        $this->assertEquals(Column::mediumint('foo', 1), new Columns\IntColumn('foo', 'mediumint', 1));
-        $this->assertEquals(Column::int('foo', 1), new Columns\IntColumn('foo', 'int', 1));
-        $this->assertEquals(Column::bigint('foo', 1), new Columns\IntColumn('foo', 'bigint', 1));
+        $this->assertEquals(Column::tinyint('foo', 1), new ColumnInt('foo', 'tinyint', 1));
+        $this->assertEquals(Column::smallint('foo', 1), new ColumnInt('foo', 'smallint', 1));
+        $this->assertEquals(Column::mediumint('foo', 1), new ColumnInt('foo', 'mediumint', 1));
+        $this->assertEquals(Column::int('foo', 1), new ColumnInt('foo', 'int', 1));
+        $this->assertEquals(Column::bigint('foo', 1), new ColumnInt('foo', 'bigint', 1));
     }
 }
