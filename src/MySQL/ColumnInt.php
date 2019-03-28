@@ -21,6 +21,7 @@ class ColumnInt extends Column
     ];
 
     private $digits;
+    private $default;
 
     public function __construct(string $name, string $type, ?int $digits = null)
     {
@@ -54,6 +55,22 @@ class ColumnInt extends Column
         return $digits;
     }
 
+    final public function setDefault(?int $value = null): self
+    {
+        $this->default = $value;
+        return $this;
+    }
+
+    final public function getDefault(): int
+    {
+        return $this->default;
+    }
+
+    final public function hasDefault(): bool
+    {
+        return $this->default !== null;
+    }
+
     final public function getBuild(): string
     {
         $build[] = sprintf('`%s`', $this->getName());
@@ -70,7 +87,7 @@ class ColumnInt extends Column
         $build[] = $nullable;
 
         $default = 'DEFAULT NULL';
-        if ($this->isNullable()) {
+        if ($this->hasDefault()) {
             $default = sprintf('DEFAULT "%s"', $this->getDefault());
         }
         $build[] = $default;
@@ -80,7 +97,7 @@ class ColumnInt extends Column
         }
 
         if ($this->hasComment()) {
-            $default = sprintf('COMMENT "%s"', $this->getComment());
+            $build[] = sprintf('COMMENT "%s"', $this->getComment());
         }
 
         return implode(' ', $build);
