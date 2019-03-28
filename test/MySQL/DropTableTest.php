@@ -4,7 +4,7 @@ namespace DBClass\MySQL;
 
 use PHPUnit\Framework\TestCase;
 
-class DropTableBuilderTest extends TestCase
+class DropTableTest extends TestCase
 {
     public function getImplementations(): array
     {
@@ -16,7 +16,7 @@ class DropTableBuilderTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test_name(callable $obj)
+    public function test_build_name(callable $obj)
     {
         $obj = $obj('foo');
         $this->assertSame('DROP TABLE `foo`;', $obj->getBuild());
@@ -25,7 +25,7 @@ class DropTableBuilderTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test_database_name(callable $obj)
+    public function test_build_database_name(callable $obj)
     {
         $obj = $obj('foo');
         $obj->setDatabaseName('bar');
@@ -35,7 +35,7 @@ class DropTableBuilderTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test_if_exists(callable $obj)
+    public function test_build_if_exists(callable $obj)
     {
         $obj = $obj('foo');
         $obj->ifExists();

@@ -4,7 +4,7 @@ namespace DBClass\MySQL;
 
 use PHPUnit\Framework\TestCase;
 
-class DropDatabaseBuilderTest extends TestCase
+class DropDatabaseTest extends TestCase
 {
     public function getImplementations(): array
     {
