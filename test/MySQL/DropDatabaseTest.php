@@ -9,7 +9,7 @@ class DropDatabaseTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new Fixtures\DropDatabaseFixture($name); }],
+            [function ($name) { return Drop::database($name); }],
         ];
     }
 

@@ -2,7 +2,7 @@
 
 namespace DBClass\MySQL\Traits;
 
-use DBClass\MySQL\Fixtures;
+use DBClass\MySQL\Drop;
 use PHPUnit\Framework\TestCase;
 
 class IfExistsTest extends TestCase
@@ -10,8 +10,8 @@ class IfExistsTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new Fixtures\DropDatabaseFixture($name); }],
-            [function ($name) { return new Fixtures\DropTableFixture($name); }],
+            [function ($name) { return Drop::database($name); }],
+            [function ($name) { return Drop::table($name); }],
         ];
     }
 

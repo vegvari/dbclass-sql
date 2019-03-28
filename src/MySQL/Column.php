@@ -21,7 +21,7 @@ abstract class Column implements Interfaces\Column
     abstract public function isTypeValid(string $type): bool;
     abstract public function getBuild(): string;
 
-    final public function setType(string $type): Interfaces\Column
+    final public function setType(string $type): self
     {
         if (! $this->isTypeValid($type)) {
             throw new Exceptions\Column(sprintf('Invalid column type: "%s"', $type));
@@ -36,7 +36,7 @@ abstract class Column implements Interfaces\Column
         return $this->type;
     }
 
-    final public function setAutoIncrement(bool $value = true): Interfaces\Column
+    final public function setAutoIncrement(bool $value = true): self
     {
         $this->auto_increment = $value;
         return $this;
@@ -47,27 +47,27 @@ abstract class Column implements Interfaces\Column
         return $this->auto_increment;
     }
 
-    final public static function tinyint(string $name, ?int $digits = null): Interfaces\Column
+    final public static function tinyint(string $name, ?int $digits = null): self
     {
         return new ColumnInt($name, 'tinyint', $digits);
     }
 
-    final public static function smallint(string $name, ?int $digits = null): Interfaces\Column
+    final public static function smallint(string $name, ?int $digits = null): self
     {
         return new ColumnInt($name, 'smallint', $digits);
     }
 
-    final public static function mediumint(string $name, ?int $digits = null): Interfaces\Column
+    final public static function mediumint(string $name, ?int $digits = null): self
     {
         return new ColumnInt($name, 'mediumint', $digits);
     }
 
-    final public static function int(string $name, ?int $digits = null): Interfaces\Column
+    final public static function int(string $name, ?int $digits = null): self
     {
         return new ColumnInt($name, 'int', $digits);
     }
 
-    final public static function bigint(string $name, ?int $digits = null): Interfaces\Column
+    final public static function bigint(string $name, ?int $digits = null): self
     {
         return new ColumnInt($name, 'bigint', $digits);
     }

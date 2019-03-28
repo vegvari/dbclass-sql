@@ -2,7 +2,7 @@
 
 namespace DBClass\MySQL\Traits;
 
-use DBClass\MySQL\Fixtures;
+use DBClass\MySQL\Create;
 use PHPUnit\Framework\TestCase;
 
 class CollationTest extends TestCase
@@ -10,8 +10,8 @@ class CollationTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new Fixtures\CreateDatabaseFixture($name); }],
-            [function ($name) { return new Fixtures\CreateTableFixture($name); }],
+            [function ($name) { return Create::database($name); }],
+            [function ($name) { return Create::table($name); }],
         ];
     }
 

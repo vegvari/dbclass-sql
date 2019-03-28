@@ -2,7 +2,9 @@
 
 namespace DBClass\MySQL\Traits;
 
-use DBClass\MySQL\Fixtures;
+use DBClass\MySQL\Drop;
+use DBClass\MySQL\Column;
+use DBClass\MySQL\Create;
 use PHPUnit\Framework\TestCase;
 
 class DatabaseNameTest extends TestCase
@@ -10,9 +12,9 @@ class DatabaseNameTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new Fixtures\CreateTableFixture($name); }],
-            [function ($name) { return new Fixtures\DropTableFixture($name); }],
-            [function ($name) { return new Fixtures\ColumnIntFixture($name, 'int'); }],
+            [function ($name) { return Create::table($name); }],
+            [function ($name) { return Drop::table($name); }],
+            [function ($name) { return Column::int($name); }],
         ];
     }
 

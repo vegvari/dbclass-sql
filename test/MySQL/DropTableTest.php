@@ -9,7 +9,7 @@ class DropTableTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new Fixtures\DropTableFixture($name); }],
+            [function ($name) { return Drop::table($name); }],
         ];
     }
 

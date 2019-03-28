@@ -9,7 +9,7 @@ class CreateTableTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new Fixtures\CreateTableFixture($name); }],
+            [function ($name) { return Create::table($name); }],
         ];
     }
 

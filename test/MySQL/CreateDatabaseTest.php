@@ -9,7 +9,7 @@ class CreateDatabaseTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new Fixtures\CreateDatabaseFixture($name); }],
+            [function ($name) { return Create::database($name); }],
         ];
     }
 

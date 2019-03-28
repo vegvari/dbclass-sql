@@ -2,7 +2,7 @@
 
 namespace DBClass\MySQL\Traits;
 
-use DBClass\MySQL\Fixtures;
+use DBClass\MySQL\Column;
 use PHPUnit\Framework\TestCase;
 
 class NullableTest extends TestCase
@@ -10,7 +10,7 @@ class NullableTest extends TestCase
     public function getImplementations(): array
     {
         return [
-            [function ($name) { return new Fixtures\ColumnIntFixture($name, 'int'); }],
+            [function ($name) { return Column::int($name); }],
         ];
     }
 
