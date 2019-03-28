@@ -20,7 +20,6 @@ class CreateTableBuilderTest extends TestCase
     {
         $obj = $obj('foo');
         $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
     }
 
     /**
@@ -31,7 +30,6 @@ class CreateTableBuilderTest extends TestCase
         $obj = $obj('foo');
         $obj->setDatabaseName('bar');
         $this->assertSame('CREATE TABLE `bar`.`foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
     }
 
     /**
@@ -42,7 +40,6 @@ class CreateTableBuilderTest extends TestCase
         $obj = $obj('foo');
         $obj->ifNotExists();
         $this->assertSame('CREATE TABLE IF NOT EXISTS `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
     }
 
     /**
@@ -53,7 +50,6 @@ class CreateTableBuilderTest extends TestCase
         $obj = $obj('foo');
         $obj->setEngine('bar');
         $this->assertSame('CREATE TABLE `foo` ENGINE `bar` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
     }
 
     /**
@@ -64,7 +60,6 @@ class CreateTableBuilderTest extends TestCase
         $obj = $obj('foo');
         $obj->setCharset('bar');
         $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `bar` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
     }
 
     /**
@@ -75,7 +70,6 @@ class CreateTableBuilderTest extends TestCase
         $obj = $obj('foo');
         $obj->setCollation('bar');
         $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `bar`;', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
     }
 
     /**
@@ -86,6 +80,5 @@ class CreateTableBuilderTest extends TestCase
         $obj = $obj('foo');
         $obj->setComment('bar');
         $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci` COMMENT \'bar\';', $obj->getBuild());
-        $this->assertSame([], $obj->getData());
     }
 }

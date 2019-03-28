@@ -2,6 +2,6 @@
 
 namespace DBClass\MySQL\Interfaces;
 
-interface DDLStatement extends Statement
+interface DDLStatement extends MySQL
 {
 }

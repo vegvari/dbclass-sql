@@ -5,13 +5,23 @@ namespace DBClass\MySQL;
 class DropDatabase implements Interfaces\DDLStatement
 {
     use Traits\Name;
-    use Traits\Builder;
     use Traits\IfExists;
-
-    const DEFAULT_BUILDER_CLASS = DropDatabaseBuilder::class;
 
     final public function __construct(string $name)
     {
         $this->setName($name);
+    }
+
+    final public function getBuild(): string
+    {
+        $build[] = 'DROP DATABASE';
+
+        if ($this->getIfExists()) {
+            $build[] = 'IF EXISTS';
+        }
+
+        $build[] = sprintf('`%s`', $this->getName());
+
+        return implode(' ', $build) . ';';
     }
 }

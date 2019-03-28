@@ -9,7 +9,7 @@ abstract class Create
         return new CreateDatabase($name);
     }
 
-    final public static function table(string $name, string $database_name = null): Interfaces\DDLStatement
+    final public static function table(string $name, ?string $database_name = null): Interfaces\DDLStatement
     {
         return new CreateTable($name, $database_name);
     }
