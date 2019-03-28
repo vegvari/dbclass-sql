@@ -16,7 +16,7 @@ class CreateTable implements Interfaces\DDLStatement
 
     private $engine = self::DEFAULT_ENGINE;
 
-    final public function __construct(string $name, string $database_name = null)
+    final public function __construct(string $name, ?string $database_name = null)
     {
         $this->setName($name);
         $this->setDatabaseName($database_name);

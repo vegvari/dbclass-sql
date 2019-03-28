@@ -11,8 +11,9 @@ class DropTable implements Interfaces\DDLStatement
 
     const DEFAULT_BUILDER_CLASS = DropTableBuilder::class;
 
-    final public function __construct(string $name)
+    final public function __construct(string $name, ?string $database_name = null)
     {
         $this->setName($name);
+        $this->setDatabaseName($database_name);
     }
 }

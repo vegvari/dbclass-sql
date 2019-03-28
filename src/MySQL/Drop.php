@@ -9,8 +9,8 @@ abstract class Drop
         return new DropDatabase($name);
     }
 
-    final public static function table(string $name): Interfaces\DDLStatement
+    final public static function table(string $name, ?string $database_name = null): Interfaces\DDLStatement
     {
-        return new DropTable($name);
+        return new DropTable($name, $database_name);
     }
 }
