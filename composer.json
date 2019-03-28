@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "DBClass\\SQL\\": "src/"
+            "DBClass\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DBClass\\SQL\\": "test/"
+            "DBClass\\": "test/"
         }
     }
 }

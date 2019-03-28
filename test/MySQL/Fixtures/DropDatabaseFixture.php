@@ -1,9 +1,9 @@
 <?php
 
-namespace DBClass\SQL\MySQL\Fixtures;
+namespace DBClass\MySQL\Fixtures;
 
-use DBClass\SQL\MySQL\Interfaces;
-use DBClass\SQL\MySQL\DropDatabase;
+use DBClass\MySQL\Interfaces;
+use DBClass\MySQL\DropDatabase;
 
 class DropDatabaseFixture extends DropDatabase implements Interfaces\DropDatabase
 {

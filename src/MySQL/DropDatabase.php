@@ -1,6 +1,6 @@
 <?php
 
-namespace DBClass\SQL\MySQL;
+namespace DBClass\MySQL;
 
 class DropDatabase implements Interfaces\DDLStatement
 {

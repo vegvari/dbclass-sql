@@ -1,6 +1,6 @@
 <?php
 
-namespace DBClass\SQL\MySQL\Interfaces;
+namespace DBClass\MySQL\Interfaces;
 
 interface DatabaseName
 {

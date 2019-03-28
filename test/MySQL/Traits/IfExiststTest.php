@@ -1,8 +1,8 @@
 <?php
 
-namespace DBClass\SQL\MySQL\Traits;
+namespace DBClass\MySQL\Traits;
 
-use DBClass\SQL\MySQL\Fixtures;
+use DBClass\MySQL\Fixtures;
 use PHPUnit\Framework\TestCase;
 
 class IfExistsTest extends TestCase

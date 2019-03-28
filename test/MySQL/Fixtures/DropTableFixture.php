@@ -1,9 +1,9 @@
 <?php
 
-namespace DBClass\SQL\MySQL\Fixtures;
+namespace DBClass\MySQL\Fixtures;
 
-use DBClass\SQL\MySQL\DropTable;
-use DBClass\SQL\MySQL\Interfaces;
+use DBClass\MySQL\DropTable;
+use DBClass\MySQL\Interfaces;
 
 class DropTableFixture extends DropTable implements Interfaces\DropTable
 {

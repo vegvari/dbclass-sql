@@ -1,8 +1,8 @@
 <?php
 
-namespace DBClass\SQL\MySQL;
+namespace DBClass\MySQL;
 
-use DBClass\SQL\MySQL\Interfaces;
+use DBClass\MySQL\Interfaces;
 
 final class CreateTableBuilder implements Interfaces\Builder
 {

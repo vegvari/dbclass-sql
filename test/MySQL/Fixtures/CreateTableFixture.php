@@ -1,9 +1,9 @@
 <?php
 
-namespace DBClass\SQL\MySQL\Fixtures;
+namespace DBClass\MySQL\Fixtures;
 
-use DBClass\SQL\MySQL\Interfaces;
-use DBClass\SQL\MySQL\CreateTable;
+use DBClass\MySQL\Interfaces;
+use DBClass\MySQL\CreateTable;
 
 class CreateTableFixture extends CreateTable implements Interfaces\CreateTable
 {

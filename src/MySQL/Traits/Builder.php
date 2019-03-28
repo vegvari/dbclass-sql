@@ -1,8 +1,8 @@
 <?php
 
-namespace DBClass\SQL\MySQL\Traits;
+namespace DBClass\MySQL\Traits;
 
-use DBClass\SQL\MySQL\Interfaces;
+use DBClass\MySQL\Interfaces;
 
 trait Builder
 {

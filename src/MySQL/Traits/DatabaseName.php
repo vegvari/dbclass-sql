@@ -1,6 +1,6 @@
 <?php
 
-namespace DBClass\SQL\MySQL\Traits;
+namespace DBClass\MySQL\Traits;
 
 trait DatabaseName
 {
