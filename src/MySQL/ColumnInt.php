@@ -29,9 +29,9 @@ class ColumnInt extends Column
         $this->setDigits($digits);
     }
 
-    final protected function checkType(string $type): bool
+    final public function isTypeValid(string $type): bool
     {
-        return ! in_array($type, self::TYPES, true);
+        return in_array($type, self::TYPES, true);
     }
 
     final public function setDigits(?int $digits = null): self

@@ -18,11 +18,12 @@ abstract class Column implements Interfaces\Column
     private $type;
     private $auto_increment = false;
 
+    abstract public function isTypeValid(string $type): bool;
     abstract public function getBuild(): string;
 
     final public function setType(string $type): Interfaces\Column
     {
-        if (! in_array($type, self::TYPES, true)) {
+        if (! $this->isTypeValid($type)) {
             throw new Exceptions\Column(sprintf('Invalid column type: "%s"', $type));
         }
 
@@ -35,7 +36,7 @@ abstract class Column implements Interfaces\Column
         return $this->type;
     }
 
-    final public function setAutoIncrement(bool $value): Interfaces\Column
+    final public function setAutoIncrement(bool $value = true): Interfaces\Column
     {
         $this->auto_increment = $value;
         return $this;
