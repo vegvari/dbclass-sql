@@ -4,6 +4,14 @@ namespace DBClass\MySQL;
 
 class ColumnInt extends Column
 {
+    const TYPES = [
+        'tinyint',
+        'smallint',
+        'mediumint',
+        'int',
+        'bigint',
+    ];
+
     const DIGITS = [
         'tinyint'   =>  4,
         'smallint'  =>  6,
@@ -21,6 +29,11 @@ class ColumnInt extends Column
         $this->setDigits($digits);
     }
 
+    final protected function checkType(string $type): bool
+    {
+        return ! in_array($type, self::TYPES, true);
+    }
+
     final public function setDigits(?int $digits = null): self
     {
         $this->digits = $digits;
@@ -33,7 +46,7 @@ class ColumnInt extends Column
             return $this->digits;
         }
 
-        $digits = self::DEFAULT_DIGITS[$this->getType()];
+        $digits = self::DIGITS[$this->getType()];
         if ($this->isUnsigned() && $this->getType() !== 'bigint') {
             $digits = $digits - 1;
         }
@@ -43,6 +56,33 @@ class ColumnInt extends Column
 
     final public function getBuild(): string
     {
-        return '';
+        $build[] = sprintf('`%s`', $this->getName());
+        $build[] = sprintf('%s(%d)', strtoupper($this->getType()), $this->getDigits());
+
+        if ($this->isUnsigned()) {
+            $build[] = 'UNSIGNED';
+        }
+
+        $nullable = 'NOT NULL';
+        if ($this->isNullable()) {
+            $nullable = 'NULL';
+        }
+        $build[] = $nullable;
+
+        $default = 'DEFAULT NULL';
+        if ($this->isNullable()) {
+            $default = sprintf('DEFAULT "%s"', $this->getDefault());
+        }
+        $build[] = $default;
+
+        if ($this->isAutoIncrement()) {
+            $build[] = 'AUTO_INCREMENT';
+        }
+
+        if ($this->hasComment()) {
+            $default = sprintf('COMMENT "%s"', $this->getComment());
+        }
+
+        return implode(' ', $build);
     }
 }

@@ -16,7 +16,9 @@ abstract class Column implements Interfaces\Column
     use Traits\DatabaseName;
 
     private $type;
-    private $auto_increment;
+    private $auto_increment = false;
+
+    abstract public function getBuild(): string;
 
     final public function setType(string $type): Interfaces\Column
     {
@@ -43,8 +45,6 @@ abstract class Column implements Interfaces\Column
     {
         return $this->auto_increment;
     }
-
-    abstract public function getBuild(): string;
 
     final public static function tinyint(string $name, ?int $digits = null): Interfaces\Column
     {
