@@ -11,6 +11,7 @@ class CommentTest extends TestCase
     {
         return [
             [function ($name) { return new Fixtures\CreateTableFixture($name); }],
+            [function ($name) { return new Fixtures\IntColumnFixture($name, 'int'); }],
         ];
     }
 

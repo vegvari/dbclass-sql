@@ -14,6 +14,7 @@ class NameTest extends TestCase
             [function ($name) { return new Fixtures\DropDatabaseFixture($name); }],
             [function ($name) { return new Fixtures\CreateTableFixture($name); }],
             [function ($name) { return new Fixtures\DropTableFixture($name); }],
+            [function ($name) { return new Fixtures\IntColumnFixture($name, 'int'); }],
         ];
     }
 
