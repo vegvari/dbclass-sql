@@ -43,6 +43,10 @@ class ColumnIntTest extends TestCase
         $this->assertSame('`foo` INT(1) NOT NULL DEFAULT NULL', $obj->getBuild());
 
         $obj = new Fixtures\ColumnIntFixture('foo', 'int', 1);
+        $obj->setUnsigned();
+        $this->assertSame('`foo` INT(1) UNSIGNED NOT NULL DEFAULT NULL', $obj->getBuild());
+
+        $obj = new Fixtures\ColumnIntFixture('foo', 'int', 1);
         $obj->setNullable();
         $this->assertSame('`foo` INT(1) NULL DEFAULT NULL', $obj->getBuild());
 
