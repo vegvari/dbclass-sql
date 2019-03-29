@@ -50,25 +50,33 @@ trait Connection
         return self::$pdo;
     }
 
-    public static function execute(string $query, array $data = []): array
+    public static function exec($query)
     {
-        $statement = self::getConnection()->prepare($query);
-        $statement->execute($data);
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        if ($query instanceof Interfaces\Statement) {
+            $query = $query->getBuild();
+        }
+
+        self::getConnection()->exec($query);
     }
 
-    public static function exec(Interfaces\Statement $query): array
+    public static function fetchAll($query): array
     {
-        return self::execute($query->getBuild(), []);
+        if ($query instanceof Interfaces\Statement) {
+            $query = $query->getBuild();
+        }
+
+        $statement = self::getConnection()->prepare($query);
+        $statement->execute([]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function showCreateDatabase(string $name): string
     {
-        return self::exec(Show::createDatabase($name))[0]['Create Database'];
+        return self::fetchAll(Show::createDatabase($name))[0]['Create Database'];
     }
 
     public static function showCreateTable(string $name, ?string $database_name = null): string
     {
-        return self::exec(Show::createTable($name, $database_name))[0]['Create Table'];
+        return self::fetchAll(Show::createTable($name, $database_name))[0]['Create Table'];
     }
 }

@@ -12,7 +12,7 @@ class CreateTableTest extends TestCase
     {
         self::exec(Drop::database('create_table_test')->ifExists());
         self::exec(Create::database('create_table_test'));
-        self::getConnection()->exec('USE create_table_test');
+        self::exec('USE create_table_test');
     }
 
     public function getImplementations(): array
