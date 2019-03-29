@@ -40,6 +40,50 @@ class CreateTableTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
+    public function test_column(callable $obj)
+    {
+        $obj = $obj('foo');
+        $this->assertSame([], $obj->getColumns());
+        $this->assertSame(false, $obj->hasColumn('bar'));
+
+        $bar = Column::int('bar');
+        $baz = Column::int('baz');
+        $obj->setColumn($bar, $baz);
+        $this->assertSame(['bar' => $bar, 'baz' => $baz], $obj->getColumns());
+        $this->assertSame(['baz' => $baz], $obj->getColumns('baz'));
+        $this->assertSame(['baz' => $baz, 'bar' => $bar], $obj->getColumns('baz', 'bar'));
+        $this->assertSame(true, $obj->hasColumn('bar'));
+        $this->assertSame(true, $obj->hasColumn('baz'));
+        $this->assertSame(false, $obj->hasColumn('foobar'));
+    }
+
+    /**
+     * @dataProvider getImplementations
+     */
+    public function test_fail_get_column(callable $obj)
+    {
+        $this->expectException(Exceptions\Table::class);
+        $this-> expectExceptionMessage('Column is not set: "bar"');
+
+        $obj = $obj('foo');
+        $this->assertSame([], $obj->getColumn('bar'));
+    }
+
+    /**
+     * @dataProvider getImplementations
+     */
+    public function test_fail_get_columns(callable $obj)
+    {
+        $this->expectException(Exceptions\Table::class);
+        $this-> expectExceptionMessage('Column is not set: "bar"');
+
+        $obj = $obj('foo');
+        $this->assertSame([], $obj->getColumns('bar'));
+    }
+
+    /**
+     * @dataProvider getImplementations
+     */
     public function test_build_name(callable $obj)
     {
         $obj = $obj('test_build_name');
