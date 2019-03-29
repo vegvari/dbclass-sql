@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnIntTest extends TestCase
 {
-    use Connection;
+    use ConnectionTrait;
 
     public static function setUpBeforeClass(): void
     {

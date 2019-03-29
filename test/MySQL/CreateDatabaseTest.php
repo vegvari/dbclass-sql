@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class CreateDatabaseTest extends TestCase
 {
-    use Connection;
+    use ConnectionTrait;
 
     public function getImplementations(): array
     {

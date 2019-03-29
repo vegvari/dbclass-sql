@@ -4,7 +4,7 @@ namespace DBClass\MySQL;
 
 use PDO;
 
-trait Connection
+trait ConnectionTrait
 {
     private static $pdo;
 
@@ -50,7 +50,7 @@ trait Connection
         return self::$pdo;
     }
 
-    public static function exec($query)
+    public static function exec($query): void
     {
         if ($query instanceof Interfaces\Statement) {
             $query = $query->getBuild();
