@@ -27,12 +27,16 @@ class ColumnDateTimeTest extends TestCase
         $this->assertSame(true, $obj->hasDefault());
         $this->assertSame(false, $obj->isDefaultCurrent());
 
+        $obj->setDefault();
+        $this->assertSame(false, $obj->hasDefault());
+        $this->assertSame(false, $obj->isDefaultCurrent());
+
         $obj->setDefaultCurrent();
         $this->assertSame('CURRENT_TIMESTAMP', $obj->getDefault());
         $this->assertSame(true, $obj->hasDefault());
         $this->assertSame(true, $obj->isDefaultCurrent());
 
-        $obj->setDefault();
+        $obj->setDefaultCurrent(false);
         $this->assertSame(false, $obj->hasDefault());
         $this->assertSame(false, $obj->isDefaultCurrent());
 

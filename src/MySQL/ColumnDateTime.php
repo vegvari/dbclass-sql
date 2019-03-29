@@ -2,7 +2,7 @@
 
 namespace DBClass\MySQL;
 
-class ColumnDateTime extends Column// implements Interfaces\ColumnInt
+class ColumnDateTime extends Column implements Interfaces\ColumnDateTime
 {
     private $default;
     private $on_update_current = false;
@@ -24,9 +24,14 @@ class ColumnDateTime extends Column// implements Interfaces\ColumnInt
         return $this;
     }
 
-    final public function setDefaultCurrent(): self
+    final public function setDefaultCurrent(bool $value = true): self
     {
-        return $this->setDefault('CURRENT_TIMESTAMP');
+        if ($value === true) {
+            return $this->setDefault('CURRENT_TIMESTAMP');
+        }
+
+        $this->default = null;
+        return $this;
     }
 
     final public function getDefault(): string
