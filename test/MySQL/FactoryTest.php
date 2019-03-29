@@ -20,6 +20,13 @@ class FactoryTest extends TestCase
         $this->assertEquals(Drop::table('foo', 'bar'), new DropTable('foo', 'bar'));
     }
 
+    public function test_show()
+    {
+        $this->assertEquals(Show::createDatabase('foo'), new ShowCreateDatabase('foo'));
+        $this->assertEquals(Show::createTable('foo'), new ShowCreateTable('foo'));
+        $this->assertEquals(Show::createTable('foo', 'bar'), new ShowCreateTable('foo', 'bar'));
+    }
+
     public function test_int_column()
     {
         $this->assertEquals(Column::tinyint('foo', 1), new ColumnInt('foo', 'tinyint', 1));
