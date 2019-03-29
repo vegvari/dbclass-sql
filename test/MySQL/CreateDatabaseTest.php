@@ -31,6 +31,20 @@ class CreateDatabaseTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
+    public function test_if_not_exists(callable $obj)
+    {
+        $obj = $obj('foo');
+        $obj->ifNotExists();
+
+        $this->exec(Drop::database('foo')->ifExists());
+        $this->exec($obj);
+        $this->assertSame($obj->setIfNotExists(false)->getBuild(), $this->showCreateDatabase('foo'));
+        $this->exec(Drop::database('foo'));
+    }
+
+    /**
+     * @dataProvider getImplementations
+     */
     public function test_charset_collation(callable $obj)
     {
         $obj = $obj('foo');
