@@ -6,19 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class ShowCreateTableTest extends TestCase
 {
-    use ConnectionTrait;
-
-    public static function setUpBeforeClass(): void
-    {
-        self::exec(Drop::database('show_create_table_test')->ifExists());
-        self::exec(Create::database('show_create_table_test'));
-        self::exec('USE show_create_table_test');
-
-        $table = Create::table('foo');
-        $table->setColumn(Column::int('foo'));
-        self::exec($table);
-    }
-
     public function getImplementations(): array
     {
         return [
@@ -33,7 +20,6 @@ class ShowCreateTableTest extends TestCase
     {
         $obj = $obj('foo');
         $this->assertSame('SHOW CREATE TABLE `foo`', $obj->getBuild());
-        self::fetchAll($obj);
     }
 
     /**
@@ -41,8 +27,7 @@ class ShowCreateTableTest extends TestCase
      */
     public function test_build_database_name(callable $obj)
     {
-        $obj = $obj('foo', 'show_create_table_test');
-        $this->assertSame('SHOW CREATE TABLE `show_create_table_test`.`foo`', $obj->getBuild());
-        self::fetchAll($obj);
+        $obj = $obj('foo', 'bar');
+        $this->assertSame('SHOW CREATE TABLE `bar`.`foo`', $obj->getBuild());
     }
 }
