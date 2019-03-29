@@ -83,25 +83,25 @@ class ColumnInt extends Column implements Interfaces\ColumnInt
         $build[] = sprintf('%s(%d)', strtolower($this->getType()), $this->getDigits());
 
         if ($this->isUnsigned()) {
-            $build[] = 'UNSIGNED';
+            $build[] = 'unsigned';
         }
 
-        if ($this->isNullable()) {
-            $build[] = 'NULL';
+        if (! $this->isNullable()) {
+            $build[] = 'NOT NULL';
         }
 
-        $default = 'DEFAULT NULL';
         if ($this->hasDefault()) {
-            $default = sprintf('DEFAULT "%s"', $this->getDefault());
+            $build[] = sprintf('DEFAULT \'%s\'', $this->getDefault());
+        } elseif ($this->isNullable()) {
+            $build[] = 'DEFAULT NULL';
         }
-        $build[] = $default;
 
         if ($this->isAutoIncrement()) {
             $build[] = 'AUTO_INCREMENT';
         }
 
         if ($this->hasComment()) {
-            $build[] = sprintf('COMMENT "%s"', $this->getComment());
+            $build[] = sprintf('COMMENT \'%s\'', $this->getComment());
         }
 
         return implode(' ', $build);

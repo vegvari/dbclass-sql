@@ -6,6 +6,16 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnIntTest extends TestCase
 {
+    use Connection;
+
+    public static function setUpBeforeClass()
+    {
+        self::exec(Create::database('column_test')->ifNotExists());
+        self::getConnection()->exec('USE column_test');
+
+        self::exec(Drop::table('column_int_test')->ifExists());
+    }
+
     public function test_digits()
     {
         $obj = Column::int('foo', 1);
@@ -47,5 +57,21 @@ class ColumnIntTest extends TestCase
 
         $obj->setDefault();
         $this->assertSame(false, $obj->hasDefault());
+    }
+
+    public function test_build()
+    {
+        $obj = Create::table('column_int_test');
+        $obj->setColumn(
+            Column::int('test_digits', 1),
+            Column::int('test_unsigned')->setUnsigned(),
+            Column::int('test_nullable')->setNullable(),
+            Column::int('test_default')->setDefault(1),
+            Column::int('test_comment')->setComment('test_comment')
+        );
+
+        self::exec($obj);
+
+        $this->assertSame($obj->getBuild(), self::showCreateTable('column_int_test'));
     }
 }
