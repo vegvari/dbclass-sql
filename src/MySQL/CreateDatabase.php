@@ -23,9 +23,9 @@ class CreateDatabase implements Interfaces\DDLStatement
         }
 
         $build[] = sprintf('`%s`', $this->getName());
-        $build[] = sprintf('CHARACTER SET `%s`', $this->getCharset());
-        $build[] = sprintf('COLLATE `%s`', $this->getCollation());
+        $build[] = sprintf('/*!40100 DEFAULT CHARACTER SET %s', $this->getCharset());
+        $build[] = sprintf('COLLATE %s */', $this->getCollation());
 
-        return implode(' ', $build) . ';';
+        return implode(' ', $build);
     }
 }

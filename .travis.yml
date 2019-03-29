@@ -4,8 +4,11 @@ env:
 language: php
 php:
     - 7.2
+services:
+    - mysql
 script: phpunit --coverage-clover clover.xml
 before_script:
+    - mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
     - composer install --no-interaction
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
