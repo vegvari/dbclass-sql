@@ -8,7 +8,7 @@ class ColumnIntTest extends TestCase
 {
     use Connection;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::exec(Create::database('column_test')->ifNotExists());
         self::getConnection()->exec('USE column_test');

@@ -8,7 +8,7 @@ class CreateTableTest extends TestCase
 {
     use Connection;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::exec(Drop::database('create_table_test')->ifExists());
         self::exec(Create::database('create_table_test'));
