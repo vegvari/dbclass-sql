@@ -58,7 +58,7 @@ class ColumnDateTime extends Column// implements Interfaces\ColumnInt
     final public function getBuild(): string
     {
         $build[] = sprintf('`%s`', $this->getName());
-        $build[] = sprintf('%s', strtoupper($this->getType()));
+        $build[] = sprintf('%s', strtolower($this->getType()));
 
         if (! $this->isNullable()) {
             $build[] = 'NOT NULL';
@@ -66,7 +66,7 @@ class ColumnDateTime extends Column// implements Interfaces\ColumnInt
 
         $default = 'DEFAULT NULL';
         if ($this->hasDefault()) {
-            $default = sprintf('DEFAULT "%s"', $this->getDefault());
+            $default = sprintf('DEFAULT \'%s\'', $this->getDefault());
 
             if ($this->isDefaultCurrent()) {
                 $default = 'DEFAULT CURRENT_TIMESTAMP';
@@ -79,7 +79,7 @@ class ColumnDateTime extends Column// implements Interfaces\ColumnInt
         }
 
         if ($this->hasComment()) {
-            $build[] = sprintf('COMMENT "%s"', $this->getComment());
+            $build[] = sprintf('COMMENT \'%s\'', $this->getComment());
         }
 
         return implode(' ', $build);

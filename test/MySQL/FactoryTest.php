@@ -35,4 +35,43 @@ class FactoryTest extends TestCase
         $this->assertEquals(Column::int('foo', 1), new ColumnInt('foo', 'int', 1));
         $this->assertEquals(Column::bigint('foo', 1), new ColumnInt('foo', 'bigint', 1));
     }
+
+    public function test_datetime_column()
+    {
+        $a = Column::datetime('foo');
+        $b = new ColumnDateTime('foo');
+        $this->assertEquals($a, $b);
+
+        $a = Column::createdAt();
+        $b = new ColumnDateTime('created_at');
+        $b->setDefaultCurrent();
+        $this->assertEquals($a, $b);
+
+        $a = Column::createdAt('foo');
+        $b = new ColumnDateTime('foo');
+        $b->setDefaultCurrent();
+        $this->assertEquals($a, $b);
+
+        $a = Column::updatedAt();
+        $b = new ColumnDateTime('updated_at');
+        $b->setDefaultCurrent();
+        $b->setOnUpdateCurrent();
+        $this->assertEquals($a, $b);
+
+        $a = Column::updatedAt('foo');
+        $b = new ColumnDateTime('foo');
+        $b->setDefaultCurrent();
+        $b->setOnUpdateCurrent();
+        $this->assertEquals($a, $b);
+
+        $a = Column::deletedAt();
+        $b = new ColumnDateTime('deleted_at');
+        $b->setNullable();
+        $this->assertEquals($a, $b);
+
+        $a = Column::deletedAt('foo');
+        $b = new ColumnDateTime('foo');
+        $b->setNullable();
+        $this->assertEquals($a, $b);
+    }
 }
