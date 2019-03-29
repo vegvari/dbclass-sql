@@ -42,6 +42,18 @@ class ColumnDateTimeTest extends TestCase
         $this->assertSame(true, $obj->isDefaultCurrent());
     }
 
+    public function test_on_update_current()
+    {
+        $obj = Column::datetime('foo');
+        $this->assertSame(false, $obj->isOnUpdateCurrent());
+
+        $obj->setOnUpdateCurrent();
+        $this->assertSame(true, $obj->isOnUpdateCurrent());
+
+        $obj->setOnUpdateCurrent(false);
+        $this->assertSame(false, $obj->isOnUpdateCurrent());
+    }
+
     public function test_build()
     {
         $obj = Create::table('column_datetime_test');
