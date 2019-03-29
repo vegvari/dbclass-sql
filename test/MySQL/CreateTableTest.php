@@ -6,6 +6,15 @@ use PHPUnit\Framework\TestCase;
 
 class CreateTableTest extends TestCase
 {
+    use Connection;
+
+    public static function setUpBeforeClass()
+    {
+        self::exec(Drop::database('create_table_test')->ifExists());
+        self::exec(Create::database('create_table_test'));
+        self::getConnection()->exec('USE create_table_test');
+    }
+
     public function getImplementations(): array
     {
         return [
@@ -33,8 +42,12 @@ class CreateTableTest extends TestCase
      */
     public function test_build_name(callable $obj)
     {
-        $obj = $obj('foo');
-        $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
+        $obj = $obj('test_build_name');
+        $obj->setColumn(Column::int('foo'));
+
+        self::exec($obj);
+
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_name'));
     }
 
     /**
@@ -42,9 +55,14 @@ class CreateTableTest extends TestCase
      */
     public function test_build_database_name(callable $obj)
     {
-        $obj = $obj('foo');
-        $obj->setDatabaseName('bar');
-        $this->assertSame('CREATE TABLE `bar`.`foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
+        $obj = $obj('test_build_database_name');
+        $obj->setDatabaseName('create_table_test');
+        $obj->setColumn(Column::int('foo'));
+
+        self::exec($obj);
+
+        $obj->setDatabaseName();
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_database_name'));
     }
 
     /**
@@ -52,9 +70,14 @@ class CreateTableTest extends TestCase
      */
     public function test_build_if_not_exists(callable $obj)
     {
-        $obj = $obj('foo');
+        $obj = $obj('test_build_if_not_exists');
         $obj->ifNotExists();
-        $this->assertSame('CREATE TABLE IF NOT EXISTS `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
+        $obj->setColumn(Column::int('foo'));
+
+        self::exec($obj);
+
+        $obj->setIfNotExists(false);
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_if_not_exists'));
     }
 
     /**
@@ -62,29 +85,28 @@ class CreateTableTest extends TestCase
      */
     public function test_build_engine(callable $obj)
     {
-        $obj = $obj('foo');
-        $obj->setEngine('bar');
-        $this->assertSame('CREATE TABLE `foo` ENGINE `bar` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
+        $obj = $obj('test_build_engine');
+        $obj->setEngine('MyISAM');
+        $obj->setColumn(Column::int('foo'));
+
+        self::exec($obj);
+
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_engine'));
     }
 
     /**
      * @dataProvider getImplementations
      */
-    public function test_build_charset(callable $obj)
+    public function test_build_charset_collation(callable $obj)
     {
-        $obj = $obj('foo');
-        $obj->setCharset('bar');
-        $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `bar` COLLATE `utf8mb4_unicode_ci`;', $obj->getBuild());
-    }
+        $obj = $obj('test_build_charset_collation');
+        $obj->setCharset('latin1');
+        $obj->setCollation('latin1_bin');
+        $obj->setColumn(Column::int('foo'));
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_collation(callable $obj)
-    {
-        $obj = $obj('foo');
-        $obj->setCollation('bar');
-        $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `bar`;', $obj->getBuild());
+        self::exec($obj);
+
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_charset_collation'));
     }
 
     /**
@@ -92,8 +114,12 @@ class CreateTableTest extends TestCase
      */
     public function test_build_comment(callable $obj)
     {
-        $obj = $obj('foo');
-        $obj->setComment('bar');
-        $this->assertSame('CREATE TABLE `foo` ENGINE `InnoDB` CHARACTER SET `utf8mb4` COLLATE `utf8mb4_unicode_ci` COMMENT \'bar\';', $obj->getBuild());
+        $obj = $obj('test_build_comment');
+        $obj->setComment('test_build_comment');
+        $obj->setColumn(Column::int('foo'));
+
+        self::exec($obj);
+
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_comment'));
     }
 }

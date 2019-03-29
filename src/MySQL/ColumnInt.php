@@ -6,14 +6,6 @@ class ColumnInt extends Column implements Interfaces\ColumnInt
 {
     use Traits\Unsigned;
 
-    const TYPES = [
-        'tinyint',
-        'smallint',
-        'mediumint',
-        'int',
-        'bigint',
-    ];
-
     const DIGITS = [
         'tinyint'   =>  4,
         'smallint'  =>  6,
@@ -23,8 +15,8 @@ class ColumnInt extends Column implements Interfaces\ColumnInt
     ];
 
     private $digits;
-    private $auto_increment = false;
     private $default;
+    private $auto_increment = false;
 
     public function __construct(string $name, string $type, ?int $digits = null)
     {
@@ -35,7 +27,7 @@ class ColumnInt extends Column implements Interfaces\ColumnInt
 
     final public function isTypeValid(string $type): bool
     {
-        return in_array($type, self::TYPES, true);
+        return in_array($type, array_keys(self::DIGITS), true);
     }
 
     final public function setDigits(?int $digits = null): self
@@ -88,17 +80,15 @@ class ColumnInt extends Column implements Interfaces\ColumnInt
     final public function getBuild(): string
     {
         $build[] = sprintf('`%s`', $this->getName());
-        $build[] = sprintf('%s(%d)', strtoupper($this->getType()), $this->getDigits());
+        $build[] = sprintf('%s(%d)', strtolower($this->getType()), $this->getDigits());
 
         if ($this->isUnsigned()) {
             $build[] = 'UNSIGNED';
         }
 
-        $nullable = 'NOT NULL';
         if ($this->isNullable()) {
-            $nullable = 'NULL';
+            $build[] = 'NULL';
         }
-        $build[] = $nullable;
 
         $default = 'DEFAULT NULL';
         if ($this->hasDefault()) {

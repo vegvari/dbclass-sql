@@ -48,30 +48,4 @@ class ColumnIntTest extends TestCase
         $obj->setDefault();
         $this->assertSame(false, $obj->hasDefault());
     }
-
-    public function test_build()
-    {
-        $obj = Column::int('foo', 1);
-        $this->assertSame('`foo` INT(1) NOT NULL DEFAULT NULL', $obj->getBuild());
-
-        $obj = Column::int('foo', 1);
-        $obj->setUnsigned();
-        $this->assertSame('`foo` INT(1) UNSIGNED NOT NULL DEFAULT NULL', $obj->getBuild());
-
-        $obj = Column::int('foo', 1);
-        $obj->setNullable();
-        $this->assertSame('`foo` INT(1) NULL DEFAULT NULL', $obj->getBuild());
-
-        $obj = Column::int('foo', 1);
-        $obj->setDefault(1);
-        $this->assertSame('`foo` INT(1) NOT NULL DEFAULT "1"', $obj->getBuild());
-
-        $obj = Column::int('foo', 1);
-        $obj->setAutoIncrement();
-        $this->assertSame('`foo` INT(1) NOT NULL DEFAULT NULL AUTO_INCREMENT', $obj->getBuild());
-
-        $obj = Column::int('foo', 1);
-        $obj->setComment('bar');
-        $this->assertSame('`foo` INT(1) NOT NULL DEFAULT NULL COMMENT "bar"', $obj->getBuild());
-    }
 }

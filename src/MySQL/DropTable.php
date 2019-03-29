@@ -28,6 +28,6 @@ class DropTable implements Interfaces\DDLStatement
         }
         $build[] = $name;
 
-        return implode(' ', $build) . ';';
+        return implode(' ', $build);
     }
 }

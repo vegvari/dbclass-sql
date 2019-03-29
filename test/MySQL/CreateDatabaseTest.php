@@ -18,42 +18,42 @@ class CreateDatabaseTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test(callable $obj)
+    public function test_build(callable $obj)
     {
         $obj = $obj('foo');
 
-        $this->exec(Drop::database('foo')->ifExists());
-        $this->exec($obj);
-        $this->assertSame($obj->getBuild(), $this->showCreateDatabase('foo'));
-        $this->exec(Drop::database('foo'));
+        self::exec(Drop::database('foo')->ifExists());
+        self::exec($obj);
+        $this->assertSame($obj->getBuild(), self::showCreateDatabase('foo'));
+        self::exec(Drop::database('foo'));
     }
 
     /**
      * @dataProvider getImplementations
      */
-    public function test_if_not_exists(callable $obj)
+    public function test_build_if_not_exists(callable $obj)
     {
         $obj = $obj('foo');
         $obj->ifNotExists();
 
-        $this->exec(Drop::database('foo')->ifExists());
-        $this->exec($obj);
-        $this->assertSame($obj->setIfNotExists(false)->getBuild(), $this->showCreateDatabase('foo'));
-        $this->exec(Drop::database('foo'));
+        self::exec(Drop::database('foo')->ifExists());
+        self::exec($obj);
+        $this->assertSame($obj->setIfNotExists(false)->getBuild(), self::showCreateDatabase('foo'));
+        self::exec(Drop::database('foo'));
     }
 
     /**
      * @dataProvider getImplementations
      */
-    public function test_charset_collation(callable $obj)
+    public function test_build_charset_collation(callable $obj)
     {
         $obj = $obj('foo');
         $obj->setCharset('latin1');
         $obj->setCollation('latin1_bin');
 
-        $this->exec(Drop::database('foo')->ifExists());
-        $this->exec($obj);
-        $this->assertSame($obj->getBuild(), $this->showCreateDatabase('foo'));
-        $this->exec(Drop::database('foo'));
+        self::exec(Drop::database('foo')->ifExists());
+        self::exec($obj);
+        $this->assertSame($obj->getBuild(), self::showCreateDatabase('foo'));
+        self::exec(Drop::database('foo'));
     }
 }

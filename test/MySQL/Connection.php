@@ -8,7 +8,7 @@ trait Connection
 {
     private static $pdo;
 
-    public function getHost(): string
+    public static function getHost(): string
     {
         if (isset($_SERVER['TRAVIS'])) {
             return '127.0.0.1';
@@ -17,7 +17,7 @@ trait Connection
         return 'homestead';
     }
 
-    public function getUser(): string
+    public static function getUser(): string
     {
         if (isset($_SERVER['TRAVIS'])) {
             return 'root';
@@ -26,7 +26,7 @@ trait Connection
         return 'homestead';
     }
 
-    public function getPassword(): string
+    public static function getPassword(): string
     {
         if (isset($_SERVER['TRAVIS'])) {
             return '';
@@ -35,7 +35,7 @@ trait Connection
         return 'secret';
     }
 
-    public function getConnection(): PDO
+    public static function getConnection(): PDO
     {
         if (self::$pdo === null) {
             $options = [
@@ -44,21 +44,31 @@ trait Connection
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             ];
 
-            self::$pdo = new PDO(sprintf('mysql:host=%s', $this->getHost()), $this->getUser(), $this->getPassword(), $options);
+            self::$pdo = new PDO(sprintf('mysql:host=%s', self::getHost()), self::getUser(), self::getPassword(), $options);
         }
 
         return self::$pdo;
     }
 
-    public function exec(Interfaces\Statement $query): array
+    public static function execute(string $query, array $data = []): array
     {
-        $statement = $this->getConnection()->prepare($query->getBuild());
-        $statement->execute([]);
+        $statement = self::getConnection()->prepare($query);
+        $statement->execute($data);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function showCreateDatabase(string $name): string
+    public static function exec(Interfaces\Statement $query): array
     {
-        return $this->exec(Show::createDatabase('foo'))[0]['Create Database'];
+        return self::execute($query->getBuild(), []);
+    }
+
+    public static function showCreateDatabase(string $name): string
+    {
+        return self::exec(Show::createDatabase($name))[0]['Create Database'];
+    }
+
+    public static function showCreateTable(string $name, ?string $database_name = null): string
+    {
+        return self::exec(Show::createTable($name, $database_name))[0]['Create Table'];
     }
 }

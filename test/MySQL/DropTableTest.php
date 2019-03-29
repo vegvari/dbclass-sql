@@ -19,7 +19,7 @@ class DropTableTest extends TestCase
     public function test_build_name(callable $obj)
     {
         $obj = $obj('foo');
-        $this->assertSame('DROP TABLE `foo`;', $obj->getBuild());
+        $this->assertSame('DROP TABLE `foo`', $obj->getBuild());
     }
 
     /**
@@ -29,7 +29,7 @@ class DropTableTest extends TestCase
     {
         $obj = $obj('foo');
         $obj->setDatabaseName('bar');
-        $this->assertSame('DROP TABLE `bar`.`foo`;', $obj->getBuild());
+        $this->assertSame('DROP TABLE `bar`.`foo`', $obj->getBuild());
     }
 
     /**
@@ -39,6 +39,6 @@ class DropTableTest extends TestCase
     {
         $obj = $obj('foo');
         $obj->ifExists();
-        $this->assertSame('DROP TABLE IF EXISTS `foo`;', $obj->getBuild());
+        $this->assertSame('DROP TABLE IF EXISTS `foo`', $obj->getBuild());
     }
 }

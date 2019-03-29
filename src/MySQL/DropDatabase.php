@@ -22,6 +22,6 @@ class DropDatabase implements Interfaces\DDLStatement
 
         $build[] = sprintf('`%s`', $this->getName());
 
-        return implode(' ', $build) . ';';
+        return implode(' ', $build);
     }
 }
