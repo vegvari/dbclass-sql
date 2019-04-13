@@ -3,9 +3,8 @@ env:
         - CC_TEST_REPORTER_ID=fd41dbea1cb2f2f1ee40154b2d52ee0d36bfb6f328344ce2e9b099ca07e884c0
 language: php
 php:
-    - 7.0
-    - 7.1
     - 7.2
+    - 7.3
     - hhvm
 services:
     - mysql
