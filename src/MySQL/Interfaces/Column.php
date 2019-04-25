@@ -22,7 +22,8 @@ interface Column
     public function setNullable(bool $nullable = true);
     public function isNullable(): bool;
 
-    public function isAutoIncrement(): bool;
+    public function setPrimary(bool $value = true);
+    public function isPrimary(): bool;
 
     public function setComment(?string $comment = null);
     public function getComment(): ?string;

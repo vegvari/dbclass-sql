@@ -15,7 +15,7 @@ class ColumnDateTime extends Column implements Interfaces\ColumnDateTime
 
     final public function isTypeValid(string $type): bool
     {
-        return true;
+        return $type === 'datetime';
     }
 
     final public function setDefault(?string $value = null): self

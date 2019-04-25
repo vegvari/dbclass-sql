@@ -15,6 +15,7 @@ abstract class Column implements Interfaces\Column
     use Traits\DatabaseName;
 
     private $type;
+    private $primary = false;
 
     abstract public function isTypeValid(string $type): bool;
     abstract public function getBuild(): string;
@@ -34,9 +35,15 @@ abstract class Column implements Interfaces\Column
         return $this->type;
     }
 
-    public function isAutoIncrement(): bool
+    public function setPrimary(bool $value = true): self
     {
-        return false;
+        $this->primary = $value;
+        return $this;
+    }
+
+    public function isPrimary(): bool
+    {
+        return $this->primary;
     }
 
     final public static function tinyint(string $name, ?int $digits = null): self
