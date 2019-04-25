@@ -36,6 +36,18 @@ class ColumnTest extends TestCase
         $obj->setType('bar');
     }
 
+    public function test_primary()
+    {
+        $obj = new ColumnTestFixture();
+        $this->assertSame(false, $obj->isPrimary());
+
+        $obj->setPrimary();
+        $this->assertSame(true, $obj->isPrimary());
+
+        $obj->setPrimary(false);
+        $this->assertSame(false, $obj->isPrimary());
+    }
+
     public function test_auto_increment()
     {
         $obj = new ColumnTestFixture();

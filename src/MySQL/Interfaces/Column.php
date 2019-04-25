@@ -25,6 +25,8 @@ interface Column
     public function setPrimary(bool $value = true);
     public function isPrimary(): bool;
 
+    public function isAutoIncrement(): bool;
+
     public function setComment(?string $comment = null);
     public function getComment(): ?string;
     public function hasComment(): bool;

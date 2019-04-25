@@ -35,15 +35,20 @@ abstract class Column implements Interfaces\Column
         return $this->type;
     }
 
-    public function setPrimary(bool $value = true): self
+    final public function setPrimary(bool $value = true): self
     {
         $this->primary = $value;
         return $this;
     }
 
-    public function isPrimary(): bool
+    final public function isPrimary(): bool
     {
         return $this->primary;
+    }
+
+    public function isAutoIncrement(): bool
+    {
+        return false;
     }
 
     final public static function tinyint(string $name, ?int $digits = null): self
