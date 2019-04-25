@@ -15,4 +15,5 @@ interface ColumnInt extends Column
 
     public function setDefault(?int $value = null);
     public function getDefault(): int;
+    public function hasDefault(): bool;
 }
