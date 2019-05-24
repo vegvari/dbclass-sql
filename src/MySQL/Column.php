@@ -39,6 +39,31 @@ abstract class Column implements Interfaces\Column
         return false;
     }
 
+    final public static function datetime(string $name): self
+    {
+        return new ColumnDateTime($name);
+    }
+
+    final public static function createdAt(string $name = 'created_at'): self
+    {
+        return (new ColumnDateTime($name))->setDefaultCurrent();
+    }
+
+    final public static function updatedAt(string $name = 'updated_at'): self
+    {
+        return (new ColumnDateTime($name))->setDefaultCurrent()->setOnUpdateCurrent();
+    }
+
+    final public static function deletedAt(string $name = 'deleted_at'): self
+    {
+        return (new ColumnDateTime($name))->setNullable();
+    }
+
+    final public static function char(string $name, int $length): self
+    {
+        return new ColumnChar($name, $length);
+    }
+
     final public static function tinyint(string $name, ?int $digits = null): self
     {
         return new ColumnInt($name, 'tinyint', $digits);
@@ -62,25 +87,5 @@ abstract class Column implements Interfaces\Column
     final public static function bigint(string $name, ?int $digits = null): self
     {
         return new ColumnInt($name, 'bigint', $digits);
-    }
-
-    final public static function datetime(string $name): self
-    {
-        return new ColumnDateTime($name);
-    }
-
-    final public static function createdAt(string $name = 'created_at'): self
-    {
-        return (new ColumnDateTime($name))->setDefaultCurrent();
-    }
-
-    final public static function updatedAt(string $name = 'updated_at'): self
-    {
-        return (new ColumnDateTime($name))->setDefaultCurrent()->setOnUpdateCurrent();
-    }
-
-    final public static function deletedAt(string $name = 'deleted_at'): self
-    {
-        return (new ColumnDateTime($name))->setNullable();
     }
 }
