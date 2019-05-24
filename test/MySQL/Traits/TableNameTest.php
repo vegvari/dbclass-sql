@@ -10,6 +10,8 @@ class TableNameTest extends TestCase
     public function getImplementations(): array
     {
         return [
+            [function ($name) { return Column::char($name, 255); }],
+            [function ($name) { return Column::datetime($name); }],
             [function ($name) { return Column::int($name); }],
         ];
     }

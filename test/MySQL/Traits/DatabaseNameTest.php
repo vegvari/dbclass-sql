@@ -14,6 +14,8 @@ class DatabaseNameTest extends TestCase
         return [
             [function ($name) { return Create::table($name); }],
             [function ($name) { return Drop::table($name); }],
+            [function ($name) { return Column::char($name, 255); }],
+            [function ($name) { return Column::datetime($name); }],
             [function ($name) { return Column::int($name); }],
         ];
     }
