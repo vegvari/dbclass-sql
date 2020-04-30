@@ -31,8 +31,5 @@ class NameTest extends TestCase
     {
         $obj = $obj('foo');
         $this->assertSame('foo', $obj->getName());
-
-        $obj->setName('bar');
-        $this->assertSame('bar', $obj->getName());
     }
 }
