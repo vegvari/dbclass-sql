@@ -2,7 +2,7 @@
 
 namespace DBClass\MySQL\Interfaces;
 
-interface Column extends Name, DatabaseName, TableName
+interface Column
 {
     public function setType(string $type);
     public function getType(): string;
