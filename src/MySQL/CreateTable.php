@@ -4,13 +4,6 @@ namespace DBClass\MySQL;
 
 class CreateTable implements Interfaces\DDLStatement
 {
-    // use Traits\Name;
-    // use Traits\Charset;
-    // use Traits\Comment;
-    // use Traits\Collation;
-    // use Traits\IfNotExists;
-    // use Traits\DatabaseName;
-
     private $databaseName;
     private $tableName;
     private $ifNotExists = false;
