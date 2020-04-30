@@ -12,12 +12,6 @@ class FactoryTest extends TestCase
         $this->assertEquals(Create::table('foo'), new CreateTable('foo'));
     }
 
-    public function test_drop()
-    {
-        $this->assertEquals(Drop::database('foo'), new DropDatabase('foo'));
-        $this->assertEquals(Drop::table('foo'), new DropTable('foo'));
-    }
-
     public function test_show()
     {
         $this->assertEquals(Show::createDatabase('foo'), new ShowCreateDatabase('foo'));
