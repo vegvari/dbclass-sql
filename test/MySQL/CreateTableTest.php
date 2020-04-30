@@ -15,34 +15,72 @@ class CreateTableTest extends TestCase
         self::exec('USE create_table_test');
     }
 
-    public function getImplementations(): array
+    public function testNames()
     {
-        return [
-            [function ($name) { return Create::table($name); }],
-        ];
+        $obj = new CreateTable('foo');
+        $this->assertSame(false, $obj->hasDatabaseName());
+        $this->assertSame('foo', $obj->getTableName());
+        $this->assertSame('foo', $obj->getName());
+
+        $obj = new CreateTable('foo');
+        $obj->setDatabaseName('bar');
+        $this->assertSame(true, $obj->hasDatabaseName());
+        $this->assertSame('bar', $obj->getDatabaseName());
+        $this->assertSame('foo', $obj->getTableName());
+        $this->assertSame('foo', $obj->getName());
     }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_engine(callable $obj)
+    public function testIfNotExists()
     {
-        $obj = $obj('foo');
-        $this->assertSame('InnoDB', $obj->getEngine());
+        $obj = new CreateTable('foo');
+        $this->assertSame(false, $obj->getIfNotExists());
+
+        $obj->setIfNotExists();
+        $this->assertSame(true, $obj->getIfNotExists());
+
+        $obj->setIfNotExists(false);
+        $this->assertSame(false, $obj->getIfNotExists());
+    }
+
+    public function testCharset()
+    {
+        $obj = new CreateTable('foo');
+        $this->assertSame(CreateTable::DEFAULT_CHARSET, $obj->getCharset());
+
+        $obj->setCharset('bar');
+        $this->assertSame('bar', $obj->getCharset());
+
+        $obj->setCharset();
+        $this->assertSame(CreateTable::DEFAULT_CHARSET, $obj->getCharset());
+    }
+
+    public function testCollation()
+    {
+        $obj = new CreateTable('foo');
+        $this->assertSame(CreateTable::DEFAULT_COLLATION, $obj->getCollation());
+
+        $obj->setCollation('bar');
+        $this->assertSame('bar', $obj->getCollation());
+
+        $obj->setCollation();
+        $this->assertSame(CreateTable::DEFAULT_COLLATION, $obj->getCollation());
+    }
+
+    public function testEngine()
+    {
+        $obj = new CreateTable('foo');
+        $this->assertSame(CreateTable::DEFAULT_ENGINE, $obj->getEngine());
 
         $obj->setEngine('bar');
         $this->assertSame('bar', $obj->getEngine());
 
         $obj->setEngine();
-        $this->assertSame('InnoDB', $obj->getEngine());
+        $this->assertSame(CreateTable::DEFAULT_ENGINE, $obj->getEngine());
     }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_column(callable $obj)
+    public function testColumns()
     {
-        $obj = $obj('foo');
+        $obj = new CreateTable('foo');
         $this->assertSame([], $obj->getColumns());
         $this->assertSame(false, $obj->hasColumn('bar'));
 
@@ -57,98 +95,26 @@ class CreateTableTest extends TestCase
         $this->assertSame(false, $obj->hasColumn('foobar'));
     }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_fail_get_column(callable $obj)
+    public function testComment()
     {
-        $this->expectException(Exceptions\Table::class);
-        $this-> expectExceptionMessage('Column is not set: "bar"');
+        $obj = new CreateTable('foo');
+        $this->assertSame(false, $obj->hasComment());
 
-        $obj = $obj('foo');
-        $this->assertSame([], $obj->getColumn('bar'));
+        $obj->setComment('bar');
+        $this->assertSame(true, $obj->hasComment());
+        $this->assertSame('bar', $obj->getComment());
+
+        $obj->setComment();
+        $this->assertSame(false, $obj->hasComment());
     }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_fail_get_columns(callable $obj)
+    public function testBuild()
     {
-        $this->expectException(Exceptions\Table::class);
-        $this-> expectExceptionMessage('Column is not set: "bar"');
-
-        $obj = $obj('foo');
-        $this->assertSame([], $obj->getColumns('bar'));
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_name(callable $obj)
-    {
-        $obj = $obj('test_build_name');
-        $obj->setColumn(Column::int('foo'));
+        $obj = new CreateTable('test_build');
+        $obj->setColumn(Column::int('foo'), Column::int('bar'), Column::int('baz'));
+        $obj->setComment('test_build');
 
         self::exec($obj);
-
-        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_name'));
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_if_not_exists(callable $obj)
-    {
-        $obj = $obj('test_build_if_not_exists');
-        $obj->setIfNotExists();
-        $obj->setColumn(Column::int('foo'));
-
-        self::exec($obj);
-
-        $obj->setIfNotExists(false);
-        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_if_not_exists'));
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_engine(callable $obj)
-    {
-        $obj = $obj('test_build_engine');
-        $obj->setEngine('MyISAM');
-        $obj->setColumn(Column::int('foo'));
-
-        self::exec($obj);
-
-        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_engine'));
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_charset_collation(callable $obj)
-    {
-        $obj = $obj('test_build_charset_collation');
-        $obj->setCharset('latin1');
-        $obj->setCollation('latin1_bin');
-        $obj->setColumn(Column::int('foo'));
-
-        self::exec($obj);
-
-        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_charset_collation'));
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_comment(callable $obj)
-    {
-        $obj = $obj('test_build_comment');
-        $obj->setComment('test_build_comment');
-        $obj->setColumn(Column::int('foo'));
-
-        self::exec($obj);
-
-        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_comment'));
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build'));
     }
 }
