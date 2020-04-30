@@ -18,6 +18,10 @@ class DropTest extends TestCase
         $this->assertEquals($obj1, $obj2);
 
         $obj1 = new DropTable('foo');
+        $obj2 = Drop::table('foo');
+        $this->assertEquals($obj1, $obj2);
+
+        $obj1 = new DropTable('foo');
         $obj1->ifExists();
         $obj2 = Drop::tableIfExists('foo');
         $this->assertEquals($obj1, $obj2);
