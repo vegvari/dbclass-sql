@@ -10,7 +10,7 @@ class CreateTableTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::exec(Drop::database('create_table_test')->ifExists());
+        self::exec(Drop::databaseIfExists('create_table_test'));
         self::exec(Create::database('create_table_test'));
         self::exec('USE create_table_test');
     }

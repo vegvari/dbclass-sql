@@ -4,13 +4,13 @@ namespace DBClass\MySQL;
 
 abstract class Show
 {
-    final public static function createDatabase(string $name): Interfaces\DDLStatement
+    final public static function createDatabase(string $databaseName): Interfaces\DDLStatement
     {
-        return new ShowCreateDatabase($name);
+        return new ShowCreateDatabase($databaseName);
     }
 
-    final public static function createTable(string $name, ?string $database_name = null): Interfaces\DDLStatement
+    final public static function createTable(string $tableName): Interfaces\DDLStatement
     {
-        return new ShowCreateTable($name, $database_name);
+        return new ShowCreateTable($tableName);
     }
 }

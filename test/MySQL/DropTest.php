@@ -13,7 +13,7 @@ class DropTest extends TestCase
         $this->assertEquals($obj1, $obj2);
 
         $obj1 = new DropDatabase('foo');
-        $obj1->ifExists();
+        $obj1->setIfExists();
         $obj2 = Drop::databaseIfExists('foo');
         $this->assertEquals($obj1, $obj2);
 
@@ -22,7 +22,7 @@ class DropTest extends TestCase
         $this->assertEquals($obj1, $obj2);
 
         $obj1 = new DropTable('foo');
-        $obj1->ifExists();
+        $obj1->setIfExists();
         $obj2 = Drop::tableIfExists('foo');
         $this->assertEquals($obj1, $obj2);
     }

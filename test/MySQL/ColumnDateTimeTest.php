@@ -10,10 +10,10 @@ class ColumnDateTimeTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::exec(Create::database('column_test')->ifNotExists());
+        self::exec(Create::database('column_test')->setIfNotExists());
         self::getConnection()->exec('USE column_test');
 
-        self::exec(Drop::table('column_datetime_test')->ifExists());
+        self::exec(Drop::tableIfExists('column_datetime_test'));
     }
 
     public function test_default()

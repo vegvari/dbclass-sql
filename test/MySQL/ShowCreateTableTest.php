@@ -6,28 +6,27 @@ use PHPUnit\Framework\TestCase;
 
 class ShowCreateTableTest extends TestCase
 {
-    public function getImplementations(): array
+    public function testNames()
     {
-        return [
-            [function ($name, $database_name = null) { return Show::createTable($name, $database_name); }],
-        ];
+        $obj = new ShowCreateTable('foo');
+        $this->assertSame(false, $obj->hasDatabaseName());
+        $this->assertSame('foo', $obj->getTableName());
+        $this->assertSame('foo', $obj->getName());
+
+        $obj = new ShowCreateTable('foo');
+        $obj->setDatabaseName('bar');
+        $this->assertSame(true, $obj->hasDatabaseName());
+        $this->assertSame('bar', $obj->getDatabaseName());
+        $this->assertSame('foo', $obj->getTableName());
+        $this->assertSame('foo', $obj->getName());
     }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_name(callable $obj)
+    public function testBuild()
     {
-        $obj = $obj('foo');
+        $obj = new ShowCreateTable('foo');
         $this->assertSame('SHOW CREATE TABLE `foo`', $obj->getBuild());
-    }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_database_name(callable $obj)
-    {
-        $obj = $obj('foo', 'bar');
+        $obj->setDatabaseName('bar');
         $this->assertSame('SHOW CREATE TABLE `bar`.`foo`', $obj->getBuild());
     }
 }

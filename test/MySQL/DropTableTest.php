@@ -26,8 +26,11 @@ class DropTableTest extends TestCase
         $obj = new DropTable('foo');
         $this->assertSame(false, $obj->getIfExists());
 
-        $obj->ifExists();
+        $obj->setIfExists();
         $this->assertSame(true, $obj->getIfExists());
+
+        $obj->setIfExists(false);
+        $this->assertSame(false, $obj->getIfExists());
     }
 
     public function testBuild()
@@ -39,7 +42,7 @@ class DropTableTest extends TestCase
         $this->assertSame('DROP TABLE `bar`.`foo`', $obj->getBuild());
 
         $obj = new DropTable('foo');
-        $obj->ifExists();
+        $obj->setIfExists();
         $this->assertSame('DROP TABLE IF EXISTS `foo`', $obj->getBuild());
 
         $obj->setDatabaseName('bar');

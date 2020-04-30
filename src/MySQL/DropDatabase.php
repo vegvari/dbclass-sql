@@ -22,9 +22,9 @@ class DropDatabase implements Interfaces\DDLStatement
         return $this->databaseName;
     }
 
-    final public function ifExists(): self
+    final public function setIfExists(bool $value = true): self
     {
-        $this->ifExists = true;
+        $this->ifExists = $value;
         return $this;
     }
 

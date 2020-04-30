@@ -4,13 +4,39 @@ namespace DBClass\MySQL;
 
 class ShowCreateTable implements Interfaces\DDLStatement
 {
-    use Traits\Name;
-    use Traits\DatabaseName;
+    private $databaseName;
+    private $tableName;
+    private $ifExists = false;
 
-    final public function __construct(string $name, ?string $database_name = null)
+    final public function __construct(string $tableName)
     {
-        $this->setName($name);
-        $this->setDatabaseName($database_name);
+        $this->tableName = $tableName;
+    }
+
+    final public function setDatabaseName(string $databaseName): self
+    {
+        $this->databaseName = $databaseName;
+        return $this;
+    }
+
+    final public function getDatabaseName(): string
+    {
+        return $this->databaseName;
+    }
+
+    final public function hasDatabaseName(): bool
+    {
+        return $this->databaseName !== null;
+    }
+
+    final public function getTableName(): string
+    {
+        return $this->tableName;
+    }
+
+    final public function getName(): string
+    {
+        return $this->tableName;
     }
 
     final public function getBuild(): string

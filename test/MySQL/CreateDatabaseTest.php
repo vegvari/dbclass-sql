@@ -8,49 +8,68 @@ class CreateDatabaseTest extends TestCase
 {
     use ConnectionTrait;
 
-    public function getImplementations(): array
+    public function testNames()
     {
-        return [
-            [function ($name) { return Create::database($name); }],
-        ];
+        $obj = new CreateDatabase('foo');
+        $this->assertSame('foo', $obj->getDatabaseName());
+        $this->assertSame('foo', $obj->getName());
     }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build(callable $obj)
+    public function testCharset()
     {
-        $obj = $obj('test_build');
+        $obj = new CreateDatabase('foo');
+        $this->assertSame(CreateDatabase::DEFAULT_CHARSET, $obj->getCharset());
 
-        self::exec(Drop::database('test_build')->ifExists());
+        $obj->setCharset('bar');
+        $this->assertSame('bar', $obj->getCharset());
+
+        $obj->setCharset();
+        $this->assertSame(CreateDatabase::DEFAULT_CHARSET, $obj->getCharset());
+    }
+
+    public function testCollation()
+    {
+        $obj = new CreateDatabase('foo');
+        $this->assertSame(CreateDatabase::DEFAULT_COLLATION, $obj->getCollation());
+
+        $obj->setCollation('bar');
+        $this->assertSame('bar', $obj->getCollation());
+
+        $obj->setCollation();
+        $this->assertSame(CreateDatabase::DEFAULT_COLLATION, $obj->getCollation());
+    }
+
+    public function testBuild()
+    {
+        self::exec(Drop::databaseIfExists('test_build'));
+
+        $obj = new CreateDatabase('test_build');
         self::exec($obj);
+
         $this->assertSame($obj->getBuild(), self::showCreateDatabase('test_build'));
     }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_if_not_exists(callable $obj)
+    public function testBuildCharsetCollation()
     {
-        $obj = $obj('test_build_if_not_exists');
-        $obj->ifNotExists();
+        self::exec(Drop::databaseIfExists('test_build'));
 
-        self::exec(Drop::database('test_build_if_not_exists')->ifExists());
-        self::exec($obj);
-        $this->assertSame($obj->setIfNotExists(false)->getBuild(), self::showCreateDatabase('test_build_if_not_exists'));
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_charset_collation(callable $obj)
-    {
-        $obj = $obj('test_build_charset_collation');
+        $obj = new CreateDatabase('test_build');
         $obj->setCharset('latin1');
         $obj->setCollation('latin1_bin');
-
-        self::exec(Drop::database('test_build_charset_collation')->ifExists());
         self::exec($obj);
-        $this->assertSame($obj->getBuild(), self::showCreateDatabase('test_build_charset_collation'));
+
+        $this->assertSame($obj->getBuild(), self::showCreateDatabase('test_build'));
+    }
+
+    public function testBuildIfNotExists()
+    {
+        self::exec(Drop::databaseIfExists('test_build'));
+
+        $obj = new CreateDatabase('test_build');
+        $obj->setIfNotExists();
+        self::exec($obj);
+
+        $obj->setIfNotExists(false);
+        $this->assertSame($obj->getBuild(), self::showCreateDatabase('test_build'));
     }
 }

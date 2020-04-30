@@ -2,11 +2,10 @@
 
 namespace DBClass\MySQL\Interfaces;
 
-interface CreateDatabase extends DDLStatement, Name
+interface CreateDatabase extends DDLStatement
 {
-    public function setIfNotExists(bool $value);
+    public function setIfNotExists(bool $value = true);
     public function getIfNotExists(): bool;
-    public function ifNotExists();
 
     public function setCharset(string $charset = self::DEFAULT_CHARSET);
     public function getCharset(): string;

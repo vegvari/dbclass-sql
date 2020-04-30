@@ -11,7 +11,7 @@ abstract class Drop
 
     final public static function databaseIfExists(string $databaseName): Interfaces\DDLStatement
     {
-        return (new DropDatabase($databaseName))->ifExists();
+        return (new DropDatabase($databaseName))->setIfExists();
     }
 
     final public static function table(string $tableName): Interfaces\DDLStatement
@@ -21,6 +21,6 @@ abstract class Drop
 
     final public static function tableIfExists(string $tableName): Interfaces\DDLStatement
     {
-        return (new DropTable($tableName))->ifExists();
+        return (new DropTable($tableName))->setIfExists();
     }
 }

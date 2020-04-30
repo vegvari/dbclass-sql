@@ -6,19 +6,16 @@ use PHPUnit\Framework\TestCase;
 
 class ShowCreateDatabaseTest extends TestCase
 {
-    public function getImplementations(): array
+    public function testNames()
     {
-        return [
-            [function ($name) { return Show::createDatabase($name); }],
-        ];
+        $obj = new ShowCreateDatabase('foo');
+        $this->assertSame('foo', $obj->getDatabaseName());
+        $this->assertSame('foo', $obj->getName());
     }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_name(callable $obj)
+    public function testBuild()
     {
-        $obj = $obj('foo');
+        $obj = new ShowCreateDatabase('foo');
         $this->assertSame('SHOW CREATE DATABASE `foo`', $obj->getBuild());
     }
 }
