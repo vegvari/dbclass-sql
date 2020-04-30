@@ -70,12 +70,10 @@ class ColumnDateTime extends Column implements Interfaces\ColumnDateTime
         }
 
         $default = 'DEFAULT NULL';
-        if ($this->hasDefault()) {
+        if ($this->isDefaultCurrent()) {
+            $default = 'DEFAULT CURRENT_TIMESTAMP';
+        } elseif ($this->hasDefault()) {
             $default = sprintf('DEFAULT \'%s\'', $this->getDefault());
-
-            if ($this->isDefaultCurrent()) {
-                $default = 'DEFAULT CURRENT_TIMESTAMP';
-            }
         }
         $build[] = $default;
 
