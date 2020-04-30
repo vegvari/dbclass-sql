@@ -4,13 +4,50 @@ namespace DBClass\MySQL;
 
 class DropTable implements Interfaces\DDLStatement
 {
-    use Traits\Name;
-    use Traits\IfExists;
-    use Traits\DatabaseName;
+    private $databaseName;
+    private $tableName;
+    private $ifExists = false;
 
     final public function __construct(string $tableName)
     {
-        $this->setName($tableName);
+        $this->tableName = $tableName;
+    }
+
+    final public function setDatabaseName(string $databaseName): self
+    {
+        $this->databaseName = $databaseName;
+        return $this;
+    }
+
+    final public function getDatabaseName(): string
+    {
+        return $this->databaseName;
+    }
+
+    final public function hasDatabaseName(): bool
+    {
+        return $this->databaseName !== null;
+    }
+
+    final public function getTableName(): string
+    {
+        return $this->tableName;
+    }
+
+    final public function getName(): string
+    {
+        return $this->tableName;
+    }
+
+    final public function ifExists(): self
+    {
+        $this->ifExists = true;
+        return $this;
+    }
+
+    final public function getIfExists(): bool
+    {
+        return $this->ifExists;
     }
 
     final public function getBuild(): string
@@ -21,7 +58,7 @@ class DropTable implements Interfaces\DDLStatement
             $build[] = 'IF EXISTS';
         }
 
-        $name = sprintf('`%s`', $this->getName());
+        $name = sprintf('`%s`', $this->getTableName());
         if ($this->hasDatabaseName()) {
             $name = sprintf('`%s`.', $this->getDatabaseName()) . $name;
         }
