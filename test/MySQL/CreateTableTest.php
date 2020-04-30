@@ -101,7 +101,7 @@ class CreateTableTest extends TestCase
     public function testFailColumnSet()
     {
         $this->expectException(Exceptions\Table::class);
-        $this-> expectExceptionMessage('Column is already set: "bar"');
+        $this-> expectExceptionMessage('Column "bar" is already set in table "foo"');
 
         $obj = new CreateTable('foo');
         $obj->setColumn(Column::int('bar'), Column::int('bar'));
@@ -110,7 +110,7 @@ class CreateTableTest extends TestCase
     public function testFailColumnGet()
     {
         $this->expectException(Exceptions\Table::class);
-        $this-> expectExceptionMessage('Column is not set: "bar"');
+        $this-> expectExceptionMessage('Column "bar" is not set in table "foo"');
 
         $obj = new CreateTable('foo');
         $obj->getColumn('bar');

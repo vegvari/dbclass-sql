@@ -92,7 +92,7 @@ final class CreateTable implements Interfaces\DDLStatement
     {
         foreach ($columns as $column) {
             if ($this->hasColumn($column->getName())) {
-                throw new Exceptions\Table(sprintf('Column is already set: "%s"', $column->getName()));
+                throw new Exceptions\Table(sprintf('Column "%s" is already set in table "%s"', $column->getName(), $this->getTableName()));
             }
 
             $this->columns[$column->getName()] = $column;
@@ -101,32 +101,32 @@ final class CreateTable implements Interfaces\DDLStatement
         return $this;
     }
 
-    public function getColumn(string $name): Interfaces\Column
+    public function getColumn(string $columnName): Interfaces\Column
     {
-        if (! $this->hasColumn($name)) {
-            throw new Exceptions\Table(sprintf('Column is not set: "%s"', $name));
+        if (! $this->hasColumn($columnName)) {
+            throw new Exceptions\Table(sprintf('Column "%s" is not set in table "%s"', $columnName, $this->getTableName()));
         }
 
-        return $this->columns[$name];
+        return $this->columns[$columnName];
     }
 
-    public function getColumns(string ...$names): array
+    public function getColumns(string ...$columnNames): array
     {
-        if ($names === []) {
+        if ($columnNames === []) {
             return $this->columns;
         }
 
         $result = [];
-        foreach ($names as $name) {
-            $result[$name] = $this->getColumn($name);
+        foreach ($columnNames as $columnName) {
+            $result[$columnName] = $this->getColumn($columnName);
         }
 
         return $result;
     }
 
-    public function hasColumn(string $name): bool
+    public function hasColumn(string $columnName): bool
     {
-        return array_key_exists($name, $this->columns);
+        return array_key_exists($columnName, $this->columns);
     }
 
     public function setComment(?string $comment = null): self
