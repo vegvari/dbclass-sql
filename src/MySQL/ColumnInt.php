@@ -90,11 +90,11 @@ class ColumnInt extends Column implements Interfaces\ColumnInt
             $build[] = 'NOT NULL';
         }
 
+        $default = 'DEFAULT NULL';
         if ($this->hasDefault()) {
-            $build[] = sprintf('DEFAULT \'%s\'', $this->getDefault());
-        } elseif ($this->isNullable()) {
-            $build[] = 'DEFAULT NULL';
+            $default = sprintf('DEFAULT \'%s\'', $this->getDefault());
         }
+        $build[] = $default;
 
         if ($this->isAutoIncrement()) {
             $build[] = 'AUTO_INCREMENT';
