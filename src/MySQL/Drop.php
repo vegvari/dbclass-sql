@@ -4,23 +4,23 @@ namespace DBClass\MySQL;
 
 abstract class Drop
 {
-    final public static function database(string $name): Interfaces\DDLStatement
+    final public static function database(string $databaseName): Interfaces\DDLStatement
     {
-        return new DropDatabase($name);
+        return new DropDatabase($databaseName);
     }
 
-    final public static function databaseIfExists(string $name): Interfaces\DDLStatement
+    final public static function databaseIfExists(string $databaseName): Interfaces\DDLStatement
     {
-        return (new DropDatabase($name))->ifExists();
+        return (new DropDatabase($databaseName))->ifExists();
     }
 
-    final public static function table(string $name, ?string $database_name = null): Interfaces\DDLStatement
+    final public static function table(string $tableName): Interfaces\DDLStatement
     {
-        return new DropTable($name, $database_name);
+        return new DropTable($tableName);
     }
 
-    final public static function tableIfExists(string $name, ?string $database_name = null): Interfaces\DDLStatement
+    final public static function tableIfExists(string $tableName): Interfaces\DDLStatement
     {
-        return (new DropTable($name, $database_name))->ifExists();
+        return (new DropTable($tableName))->ifExists();
     }
 }

@@ -4,17 +4,17 @@ namespace DBClass\MySQL\Traits;
 
 trait IfExists
 {
-    private $if_exists = false;
+    private $ifExists = false;
 
     final public function setIfExists(bool $value): self
     {
-        $this->if_exists = $value;
+        $this->ifExists = $value;
         return $this;
     }
 
     final public function getIfExists(): bool
     {
-        return $this->if_exists;
+        return $this->ifExists;
     }
 
     final public function ifExists(): self

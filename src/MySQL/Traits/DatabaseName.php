@@ -4,21 +4,21 @@ namespace DBClass\MySQL\Traits;
 
 trait DatabaseName
 {
-    private $database_name;
+    private $databaseName;
 
-    final public function setDatabaseName(?string $database_name = null): self
+    final public function setDatabaseName(?string $databaseName = null): self
     {
-        $this->database_name = $database_name;
+        $this->databaseName = $databaseName;
         return $this;
     }
 
     final public function getDatabaseName(): ?string
     {
-        return $this->database_name;
+        return $this->databaseName;
     }
 
     final public function hasDatabaseName(): bool
     {
-        return $this->database_name !== null;
+        return $this->databaseName !== null;
     }
 }

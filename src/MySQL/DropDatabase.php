@@ -7,9 +7,9 @@ class DropDatabase implements Interfaces\DDLStatement
     use Traits\Name;
     use Traits\IfExists;
 
-    final public function __construct(string $name)
+    final public function __construct(string $databaseName)
     {
-        $this->setName($name);
+        $this->setName($databaseName);
     }
 
     final public function getBuild(): string

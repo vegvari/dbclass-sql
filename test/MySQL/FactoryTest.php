@@ -10,21 +10,18 @@ class FactoryTest extends TestCase
     {
         $this->assertEquals(Create::database('foo'), new CreateDatabase('foo'));
         $this->assertEquals(Create::table('foo'), new CreateTable('foo'));
-        $this->assertEquals(Create::table('foo', 'bar'), new CreateTable('foo', 'bar'));
     }
 
     public function test_drop()
     {
         $this->assertEquals(Drop::database('foo'), new DropDatabase('foo'));
         $this->assertEquals(Drop::table('foo'), new DropTable('foo'));
-        $this->assertEquals(Drop::table('foo', 'bar'), new DropTable('foo', 'bar'));
     }
 
     public function test_show()
     {
         $this->assertEquals(Show::createDatabase('foo'), new ShowCreateDatabase('foo'));
         $this->assertEquals(Show::createTable('foo'), new ShowCreateTable('foo'));
-        $this->assertEquals(Show::createTable('foo', 'bar'), new ShowCreateTable('foo', 'bar'));
     }
 
     public function test_char_column()

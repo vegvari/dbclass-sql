@@ -8,10 +8,9 @@ class DropTable implements Interfaces\DDLStatement
     use Traits\IfExists;
     use Traits\DatabaseName;
 
-    final public function __construct(string $name, ?string $database_name = null)
+    final public function __construct(string $tableName)
     {
-        $this->setName($name);
-        $this->setDatabaseName($database_name);
+        $this->setName($tableName);
     }
 
     final public function getBuild(): string
