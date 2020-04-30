@@ -6,19 +6,14 @@ trait IfExists
 {
     private $ifExists = false;
 
-    final public function setIfExists(bool $value): self
+    final public function ifExists(): self
     {
-        $this->ifExists = $value;
+        $this->ifExists = true;
         return $this;
     }
 
     final public function getIfExists(): bool
     {
         return $this->ifExists;
-    }
-
-    final public function ifExists(): self
-    {
-        return $this->setIfExists(true);
     }
 }

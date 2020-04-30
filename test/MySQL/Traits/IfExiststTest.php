@@ -23,12 +23,6 @@ class IfExistsTest extends TestCase
         $obj = $obj('foo');
         $this->assertSame(false, $obj->getIfExists());
 
-        $obj->setIfExists(true);
-        $this->assertSame(true, $obj->getIfExists());
-
-        $obj->setIfExists(false);
-        $this->assertSame(false, $obj->getIfExists());
-
         $obj->ifExists();
         $this->assertSame(true, $obj->getIfExists());
     }
