@@ -4,20 +4,62 @@ namespace DBClass\MySQL;
 
 class CreateTable implements Interfaces\DDLStatement
 {
-    use Traits\Name;
-    use Traits\Charset;
-    use Traits\Comment;
-    use Traits\Collation;
-    use Traits\IfNotExists;
-    use Traits\DatabaseName;
+    // use Traits\Name;
+    // use Traits\Charset;
+    // use Traits\Comment;
+    // use Traits\Collation;
+    // use Traits\IfNotExists;
+    // use Traits\DatabaseName;
 
+    private $databaseName;
+    private $tableName;
+    private $ifNotExists = false;
+    private $charset = self::DEFAULT_CHARSET;
+    private $collation = self::DEFAULT_COLLATION;
     private $engine = self::DEFAULT_ENGINE;
     private $columns = [];
+    private $comment;
 
-    final public function __construct(string $name, ?string $database_name = null)
+    public function __construct(string $tableName)
     {
-        $this->setName($name);
-        $this->setDatabaseName($database_name);
+        $this->tableName = $tableName;
+    }
+
+    public function setDatabaseName(string $databaseName): self
+    {
+        $this->databaseName = $databaseName;
+        return $this;
+    }
+
+    public function getDatabaseName(): string
+    {
+        return $this->databaseName;
+    }
+
+    public function hasDatabaseName(): bool
+    {
+        return $this->databaseName !== null;
+    }
+
+    public function getTableName(): string
+    {
+        return $this->tableName;
+    }
+
+    public function getName(): string
+    {
+        return $this->tableName;
+    }
+
+    public function setIfNotExists(bool $value = true): self
+    {
+        $this->ifNotExists = $value;
+        return $this;
+    }
+
+    public function getIfNotExists(): bool
+    {
+        return $this->ifNotExists;
     }
 
     final public function setEngine(string $engine = self::DEFAULT_ENGINE): self
@@ -29,6 +71,28 @@ class CreateTable implements Interfaces\DDLStatement
     final public function getEngine(): string
     {
         return $this->engine;
+    }
+
+    final public function setCharset(string $charset = self::DEFAULT_CHARSET): self
+    {
+        $this->charset = $charset;
+        return $this;
+    }
+
+    final public function getCharset(): string
+    {
+        return $this->charset;
+    }
+
+    final public function setCollation(string $collation = self::DEFAULT_COLLATION): self
+    {
+        $this->collation = $collation;
+        return $this;
+    }
+
+    final public function getCollation(): string
+    {
+        return $this->collation;
     }
 
     final public function setColumn(Interfaces\Column ...$columns): self
@@ -68,6 +132,22 @@ class CreateTable implements Interfaces\DDLStatement
         return array_key_exists($name, $this->columns);
     }
 
+    final public function setComment(?string $comment = null): self
+    {
+        $this->comment = $comment;
+        return $this;
+    }
+
+    final public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    final public function hasComment(): bool
+    {
+        return $this->comment !== null;
+    }
+
     final public function getBuild(): string
     {
         $build[] = 'CREATE TABLE';
@@ -76,7 +156,7 @@ class CreateTable implements Interfaces\DDLStatement
             $build[] = 'IF NOT EXISTS';
         }
 
-        $name = sprintf('`%s`', $this->getName());
+        $name = sprintf('`%s`', $this->getTableName());
         if ($this->hasDatabaseName()) {
             $name = sprintf('`%s`.', $this->getDatabaseName()) . $name;
         }

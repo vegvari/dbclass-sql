@@ -97,25 +97,10 @@ class CreateTableTest extends TestCase
     /**
      * @dataProvider getImplementations
      */
-    public function test_build_database_name(callable $obj)
-    {
-        $obj = $obj('test_build_database_name');
-        $obj->setDatabaseName('create_table_test');
-        $obj->setColumn(Column::int('foo'));
-
-        self::exec($obj);
-
-        $obj->setDatabaseName();
-        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build_database_name'));
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
     public function test_build_if_not_exists(callable $obj)
     {
         $obj = $obj('test_build_if_not_exists');
-        $obj->ifNotExists();
+        $obj->setIfNotExists();
         $obj->setColumn(Column::int('foo'));
 
         self::exec($obj);
