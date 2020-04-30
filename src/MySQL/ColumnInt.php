@@ -92,9 +92,7 @@ class ColumnInt extends Column implements Interfaces\ColumnInt
 
         if ($this->hasDefault()) {
             $build[] = sprintf('DEFAULT \'%s\'', $this->getDefault());
-        }
-
-        if (! $this->hasDefault() && $this->isNullable()) {
+        } elseif ($this->isNullable()) {
             $build[] = 'DEFAULT NULL';
         }
 
