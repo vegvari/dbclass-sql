@@ -28,6 +28,9 @@ class CreateTableTest extends TestCase
         $this->assertSame('bar', $obj->getDatabaseName());
         $this->assertSame('foo', $obj->getTableName());
         $this->assertSame('foo', $obj->getName());
+
+        $obj->setDatabaseName();
+        $this->assertSame(false, $obj->hasDatabaseName());
     }
 
     public function testIfNotExists()
@@ -95,6 +98,24 @@ class CreateTableTest extends TestCase
         $this->assertSame(false, $obj->hasColumn('foobar'));
     }
 
+    public function testFailColumnSet()
+    {
+        $this->expectException(Exceptions\Table::class);
+        $this-> expectExceptionMessage('Column is already set: "bar"');
+
+        $obj = new CreateTable('foo');
+        $obj->setColumn(Column::int('bar'), Column::int('bar'));
+    }
+
+    public function testFailColumnGet()
+    {
+        $this->expectException(Exceptions\Table::class);
+        $this-> expectExceptionMessage('Column is not set: "bar"');
+
+        $obj = new CreateTable('foo');
+        $obj->getColumn('bar');
+    }
+
     public function testComment()
     {
         $obj = new CreateTable('foo');
@@ -110,11 +131,75 @@ class CreateTableTest extends TestCase
 
     public function testBuild()
     {
+        self::exec(Drop::tableIfExists('test_build'));
+
+        $obj = new CreateTable('test_build');
+        $obj->setColumn(Column::int('foo'), Column::int('bar'), Column::int('baz'));
+        self::exec($obj);
+
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build'));
+    }
+
+    public function testBuildDatabaseName()
+    {
+        self::exec(Drop::tableIfExists('test_build'));
+
+        $obj = new CreateTable('test_build');
+        $obj->setDatabaseName('create_table_test');
+        $obj->setColumn(Column::int('foo'), Column::int('bar'), Column::int('baz'));
+        self::exec($obj);
+
+        $obj->setDatabaseName();
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build'));
+    }
+
+    public function testBuildIfNotExists()
+    {
+        self::exec(Drop::tableIfExists('test_build'));
+
+        $obj = new CreateTable('test_build');
+        $obj->setColumn(Column::int('foo'), Column::int('bar'), Column::int('baz'));
+        $obj->setIfNotExists();
+        self::exec($obj);
+
+        $obj->setIfNotExists(false);
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build'));
+    }
+
+    public function testBuildCharsetCollation()
+    {
+        self::exec(Drop::tableIfExists('test_build'));
+
+        $obj = new CreateTable('test_build');
+        $obj->setColumn(Column::int('foo'), Column::int('bar'), Column::int('baz'));
+        $obj->setCharset('latin1');
+        $obj->setCollation('latin1_bin');
+        self::exec($obj);
+
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build'));
+    }
+
+    public function testBuildEngine()
+    {
+        self::exec(Drop::tableIfExists('test_build'));
+
+        $obj = new CreateTable('test_build');
+        $obj->setColumn(Column::int('foo'), Column::int('bar'), Column::int('baz'));
+        $obj->setEngine('MyISAM');
+        self::exec($obj);
+
+        $this->assertSame($obj->getBuild(), self::showCreateTable('test_build'));
+    }
+
+    public function testBuildComment()
+    {
+        self::exec(Drop::tableIfExists('test_build'));
+
         $obj = new CreateTable('test_build');
         $obj->setColumn(Column::int('foo'), Column::int('bar'), Column::int('baz'));
         $obj->setComment('test_build');
-
         self::exec($obj);
+
         $this->assertSame($obj->getBuild(), self::showCreateTable('test_build'));
     }
 }

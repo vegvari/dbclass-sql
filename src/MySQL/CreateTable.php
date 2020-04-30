@@ -2,7 +2,7 @@
 
 namespace DBClass\MySQL;
 
-class CreateTable implements Interfaces\DDLStatement
+final class CreateTable implements Interfaces\DDLStatement
 {
     private $databaseName;
     private $tableName;
@@ -18,7 +18,7 @@ class CreateTable implements Interfaces\DDLStatement
         $this->tableName = $tableName;
     }
 
-    public function setDatabaseName(string $databaseName): self
+    public function setDatabaseName(?string $databaseName = null): self
     {
         $this->databaseName = $databaseName;
         return $this;
@@ -55,49 +55,53 @@ class CreateTable implements Interfaces\DDLStatement
         return $this->ifNotExists;
     }
 
-    final public function setEngine(string $engine = self::DEFAULT_ENGINE): self
+    public function setEngine(string $engine = self::DEFAULT_ENGINE): self
     {
         $this->engine = $engine;
         return $this;
     }
 
-    final public function getEngine(): string
+    public function getEngine(): string
     {
         return $this->engine;
     }
 
-    final public function setCharset(string $charset = self::DEFAULT_CHARSET): self
+    public function setCharset(string $charset = self::DEFAULT_CHARSET): self
     {
         $this->charset = $charset;
         return $this;
     }
 
-    final public function getCharset(): string
+    public function getCharset(): string
     {
         return $this->charset;
     }
 
-    final public function setCollation(string $collation = self::DEFAULT_COLLATION): self
+    public function setCollation(string $collation = self::DEFAULT_COLLATION): self
     {
         $this->collation = $collation;
         return $this;
     }
 
-    final public function getCollation(): string
+    public function getCollation(): string
     {
         return $this->collation;
     }
 
-    final public function setColumn(Interfaces\Column ...$columns): self
+    public function setColumn(Interfaces\Column ...$columns): self
     {
         foreach ($columns as $column) {
+            if ($this->hasColumn($column->getName())) {
+                throw new Exceptions\Table(sprintf('Column is already set: "%s"', $column->getName()));
+            }
+
             $this->columns[$column->getName()] = $column;
         }
 
         return $this;
     }
 
-    final public function getColumn(string $name): Interfaces\Column
+    public function getColumn(string $name): Interfaces\Column
     {
         if (! $this->hasColumn($name)) {
             throw new Exceptions\Table(sprintf('Column is not set: "%s"', $name));
@@ -106,7 +110,7 @@ class CreateTable implements Interfaces\DDLStatement
         return $this->columns[$name];
     }
 
-    final public function getColumns(string ...$names): array
+    public function getColumns(string ...$names): array
     {
         if ($names === []) {
             return $this->columns;
@@ -120,28 +124,28 @@ class CreateTable implements Interfaces\DDLStatement
         return $result;
     }
 
-    final public function hasColumn(string $name): bool
+    public function hasColumn(string $name): bool
     {
         return array_key_exists($name, $this->columns);
     }
 
-    final public function setComment(?string $comment = null): self
+    public function setComment(?string $comment = null): self
     {
         $this->comment = $comment;
         return $this;
     }
 
-    final public function getComment(): ?string
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    final public function hasComment(): bool
+    public function hasComment(): bool
     {
         return $this->comment !== null;
     }
 
-    final public function getBuild(): string
+    public function getBuild(): string
     {
         $build[] = 'CREATE TABLE';
 

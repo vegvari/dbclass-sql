@@ -19,6 +19,9 @@ class DropTableTest extends TestCase
         $this->assertSame('bar', $obj->getDatabaseName());
         $this->assertSame('foo', $obj->getTableName());
         $this->assertSame('foo', $obj->getName());
+
+        $obj->setDatabaseName();
+        $this->assertSame(false, $obj->hasDatabaseName());
     }
 
     public function testIfExists()

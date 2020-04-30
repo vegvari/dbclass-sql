@@ -13,7 +13,7 @@ final class DropTable implements Interfaces\DDLStatement
         $this->tableName = $tableName;
     }
 
-    public function setDatabaseName(string $databaseName): self
+    public function setDatabaseName(?string $databaseName = null): self
     {
         $this->databaseName = $databaseName;
         return $this;
