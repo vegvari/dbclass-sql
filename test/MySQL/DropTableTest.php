@@ -6,39 +6,18 @@ use PHPUnit\Framework\TestCase;
 
 class DropTableTest extends TestCase
 {
-    public function getImplementations(): array
+    public function testBuild()
     {
-        return [
-            [function ($name) { return Drop::table($name); }],
-        ];
-    }
-
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_name(callable $obj)
-    {
-        $obj = $obj('foo');
+        $obj = Drop::table('foo');
         $this->assertSame('DROP TABLE `foo`', $obj->getBuild());
-    }
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_database_name(callable $obj)
-    {
-        $obj = $obj('foo');
-        $obj->setDatabaseName('bar');
-        $this->assertSame('DROP TABLE `bar`.`foo`', $obj->getBuild());
-    }
+        $obj = Drop::table('foo', 'bar');
+        $this->assertSame('DROP TABLE `bar.foo`', $obj->getBuild());
 
-    /**
-     * @dataProvider getImplementations
-     */
-    public function test_build_if_exists(callable $obj)
-    {
-        $obj = $obj('foo');
-        $obj->ifExists();
+        $obj = Drop::tableIfExists('foo');
         $this->assertSame('DROP TABLE IF EXISTS `foo`', $obj->getBuild());
+
+        $obj = Drop::tableIfExists('foo', 'bar');
+        $this->assertSame('DROP TABLE IF EXISTS `bar.foo`', $obj->getBuild());
     }
 }

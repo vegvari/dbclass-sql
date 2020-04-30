@@ -30,5 +30,9 @@ class DropDatabaseTest extends TestCase
         $obj = $obj('foo');
         $obj->setIfExists(true);
         $this->assertSame('DROP DATABASE IF EXISTS `foo`', $obj->getBuild());
+
+        $obj = $obj('foo');
+        $obj->ifExists();
+        $this->assertSame('DROP DATABASE IF EXISTS `foo`', $obj->getBuild());
     }
 }
