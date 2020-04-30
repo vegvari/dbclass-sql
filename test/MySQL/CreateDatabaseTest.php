@@ -49,18 +49,6 @@ class CreateDatabaseTest extends TestCase
         $this->assertSame($obj->getBuild(), self::showCreateDatabase('test_build'));
     }
 
-    public function testBuildCharsetCollation()
-    {
-        self::exec(Drop::databaseIfExists('test_build'));
-
-        $obj = new CreateDatabase('test_build');
-        $obj->setCharset('latin1');
-        $obj->setCollation('latin1_bin');
-        self::exec($obj);
-
-        $this->assertSame($obj->getBuild(), self::showCreateDatabase('test_build'));
-    }
-
     public function testBuildIfNotExists()
     {
         self::exec(Drop::databaseIfExists('test_build'));
@@ -70,6 +58,18 @@ class CreateDatabaseTest extends TestCase
         self::exec($obj);
 
         $obj->setIfNotExists(false);
+        $this->assertSame($obj->getBuild(), self::showCreateDatabase('test_build'));
+    }
+
+    public function testBuildCharsetCollation()
+    {
+        self::exec(Drop::databaseIfExists('test_build'));
+
+        $obj = new CreateDatabase('test_build');
+        $obj->setCharset('latin1');
+        $obj->setCollation('latin1_bin');
+        self::exec($obj);
+
         $this->assertSame($obj->getBuild(), self::showCreateDatabase('test_build'));
     }
 }
