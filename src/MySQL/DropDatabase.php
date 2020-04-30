@@ -12,12 +12,12 @@ class DropDatabase implements Interfaces\DDLStatement
         $this->databaseName = $databaseName;
     }
 
-    public function getDatabaseName(): string
+    final public function getDatabaseName(): string
     {
         return $this->databaseName;
     }
 
-    public function getName(): string
+    final public function getName(): string
     {
         return $this->databaseName;
     }
